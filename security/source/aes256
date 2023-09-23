@@ -1,0 +1,15 @@
+// clang-format off
+
+#ifdef _DEBUG
+#    ifdef X64
+#        pragma comment(lib, __FILE__"_x64_dbg.lib")
+#    else
+#        pragma comment(lib, __FILE__"_x86_dbg.lib")
+#    endif
+#else
+#    ifdef X64
+#        pragma comment(lib, __FILE__"_x64.lib")
+#    else
+#        pragma comment(lib, __FILE__"_x86.lib")
+#    endif
+#endif
