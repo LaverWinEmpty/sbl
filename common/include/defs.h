@@ -1,6 +1,11 @@
 #ifndef __SEMIBASE_MACROS_HEADER__
 #define __SEMIBASE_MACROS_HEADER__
 
+/*
+    2023.09.24
+    Windows OS / ANSI (CP-949)
+*/
+
 // Check OS
 #if _WIN32 || _WIN64
 #    if _WIN64

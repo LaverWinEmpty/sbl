@@ -14,7 +14,7 @@ template<typename T, UWord n> void Array<T, n>::Reallocation(IN size_t dataSize)
 
     T* newMem = new T[capacity];
     if(newMem == nullptr) {
-        throw SErrorBuilder::NewFailed();
+        throw ErrorBuilder::NewFailed();
     }
 
     // Move
