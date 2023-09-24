@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_HASH_SHA256_HEADER_FROM_KISA__
-#define __SEMIBASE_HASH_SHA256_HEADER_FROM_KISA__
+#ifndef SEMIBASE_SHA256_HEADER__
+#define SEMIBASE_SHA256_HEADER__
 
 #include "string"
 #include "../../common/include/common.h"
@@ -37,7 +37,8 @@ private:
 public:
     static std::string Hashing(IN const Ptr message, IN SzInt size);
     static std::string Hashing(IN const std::string msg);
-    static std::string Encrypt(IN const Ptr message, IN SzInt messageSize, IN const Ptr salt, IN SzInt saltSize, IN SzInt stretching);
+    static std::string Encrypt(IN const Ptr message, IN SzInt messageSize, IN const Ptr salt, IN SzInt saltSize,
+                               IN SzInt stretching);
     static std::string Encrypt(IN const std::string msg, IN const std::string salt, IN SzInt stretching);
 
 private:
@@ -61,7 +62,8 @@ private:
 };
 
 EXPORT char* SHA256_Hasing(IN const void* message, IN int size);
-EXPORT char* SHA256_Encrypt(IN const void* message, IN int msgSize, IN const void* salt, IN int saltSize, IN int stretching);
+EXPORT char* SHA256_Encrypt(IN const void* message, IN int msgSize, IN const void* salt, IN int saltSize,
+                            IN int stretching);
 
 } // namespace sbl
 #endif

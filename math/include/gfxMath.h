@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_GRAPHICS_MATH_HEADER__
-#define __SEMIBASE_GRAPHICS_MATH_HEADER__
+#ifndef SBL_GRAPHICS_MATH_HEADER__
+#define SBL_GRAPHICS_MATH_HEADER__
 
 #include "math.h"
 #include "../../common/include/common.h"

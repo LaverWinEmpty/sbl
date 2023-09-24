@@ -1,16 +1,11 @@
-#ifndef __SEMIBASE_EXTERNAL_COUNTER_HEADER__
-#define __SEMIBASE_EXTERNAL_COUNTER_HEADER__
+#ifndef SBL_COUNTER_HEADER__
+#define SBL_COUNTER_HEADER__
 
 #include "../../common/include/common.h"
 
 namespace sbl {
 
-template<typename T> class Counter;
-template<typename T> using PtrCtr = Counter<T>*;
-using FloatCounter                = Counter<float>;
-using PtrFltCtr                   = Counter<float>*;
-
-template<typename T = float> class Counter
+template<typename T> class Counter
 {
 public:
     Counter();

@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_VECTOR_4_HEADER__
-#define __SEMIBASE_VECTOR_4_HEADER__
+#ifndef SBL_VECTOR_4D_HEADER__
+#define SBL_VECTOR_4D_HEADER__
 
 #include "vector3.h"
 

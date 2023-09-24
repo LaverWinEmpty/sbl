@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_ITERATOR_SOURCE__
-#define __SEMIBASE_ITERATOR_SOURCE__
+#ifndef SEMIBASE_ITERATOR_SOURCE__
+#define SEMIBASE_ITERATOR_SOURCE__
 
 #include "../include/iterator.h"
 #include "../include/tree.h"

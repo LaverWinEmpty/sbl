@@ -1,3 +1,6 @@
+#ifndef SBL_IOCP_HEADER__
+#define SBL_IOCP_HEADER__
+
 #include "tcp.h"
 
 namespace sbl {
@@ -126,8 +129,8 @@ public:
     bool Transmit();
 
 public:
-    virtual SocketState* NextState() = 0; // End: return nullptr
-    virtual ENext        PostReceive() = 0;
+    virtual SocketState* NextState()    = 0; // End: return nullptr
+    virtual ENext        PostReceive()  = 0;
     virtual ENext        PostTransmit() = 0;
 
 private:
@@ -162,3 +165,4 @@ private:
 
 } // namespace iocp
 } // namespace sbl
+#endif

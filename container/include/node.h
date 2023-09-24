@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_NODE_HEADER__
-#define __SEMIBASE_NODE_HEADER__
+#ifndef SEMIBASE_NODE_HEADER__
+#define SEMIBASE_NODE_HEADER__
 
 #include "../../common/include/common.h"
 

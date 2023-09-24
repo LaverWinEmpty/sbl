@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_MATRIX_4X4_HEADER__
-#define __SEMIBASE_MATRIX_4X4_HEADER__
+#ifndef SBL_MATRIX_4X4_HEADER__
+#define SBL_MATRIX_4X4_HEADER__
 
 #include "gfxMath.h"
 

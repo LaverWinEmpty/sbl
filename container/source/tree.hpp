@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_RED_BLACK_TREE_SOURCE_
-#define __SEMIBASE_RED_BLACK_TREE_SOURCE_
+#ifndef SEMIBASE_RED_BLACK_TREE_SOURCE_
+#define SEMIBASE_RED_BLACK_TREE_SOURCE_
 
 #include "../include/tree.h"
 #include "array.hpp"

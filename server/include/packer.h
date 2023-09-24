@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_PACKAGING_HELPER_HEADER__
-#define __SEMIBASE_PACKAGING_HELPER_HEADER__
+#ifndef SBL_PACKER_HEADER__
+#define SBL_PACKER_HEADER__
 
 #include "../include/tcp.h"
 

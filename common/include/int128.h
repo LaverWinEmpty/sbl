@@ -7,35 +7,58 @@
 
 namespace sbl {
 
+// clang-format off
+
+// Default: little-endian
+// If this code is used on a big-endian architecture, write => #define BIG_ENDIAN
 struct UInt128
 {
-    UInt64 high, low;
+    union {
+        struct { UInt8  byte[TO_BYTE(128)]; };
+#ifdef BIG_ENDIAN
+        struct { UInt64 high, low; };
+#else
+        struct { UInt64 low, high; };
+#endif
+    };
+
+//    union {
+//        struct { UInt8  byte[TO_BYTE(128)]; };
+//#if static_cast<bool>((static_cast<short>0x0100))
+//        struct { UInt64 high, low; };
+//#else
+//        struct { UInt64 low, high; };
+//#endif
+//    };
 
     UInt128();
     UInt128(IN const UInt128& ref);
     UInt128(IN UInt64 high, IN UInt64 low);
-    UInt128(IN UInt64 ll);
-    UInt128& operator=(IN const UInt128& ref);
-    bool     operator==(IN const UInt128& ref) const;
-    bool     operator!=(IN const UInt128& ref) const;
-    bool     operator>(IN const UInt128& ref) const;
-    bool     operator<(IN const UInt128& ref) const;
-    bool     operator>=(IN const UInt128& ref) const;
-    bool     operator<=(IN const UInt128& ref) const;
-    bool     operator!() const;
-    UInt128  operator^(IN const UInt128&) const;
-    UInt128  operator&(IN const UInt128&) const;
-    UInt128  operator|(IN const UInt128&) const;
-    UInt128  operator<<(IN size_t) const;
-    UInt128  operator>>(IN size_t) const;
-    UInt128  operator~() const;
-    UInt128& operator^=(IN const UInt128&);
-    UInt128& operator&=(IN const UInt128&);
-    UInt128& operator|=(IN const UInt128&);
-    UInt128& operator<<=(IN size_t);
-    UInt128& operator>>=(IN size_t);
+    UInt128(IN UInt64);
+    UInt128& operator=  (IN const UInt128&);
+    bool     operator== (IN const UInt128&) const;
+    bool     operator!= (IN const UInt128&) const;
+    bool     operator>  (IN const UInt128&) const;
+    bool     operator<  (IN const UInt128&) const;
+    bool     operator>= (IN const UInt128&) const;
+    bool     operator<= (IN const UInt128&) const;
+    bool     operator!  ()                  const;
+    UInt128  operator~  ()                  const;
+    UInt128  operator%  (IN const UInt128&) const;
+    UInt128  operator^  (IN const UInt128&) const;
+    UInt128  operator&  (IN const UInt128&) const;
+    UInt128  operator|  (IN const UInt128&) const;
+    UInt128  operator<< (IN const size_t)   const;
+    UInt128  operator>> (IN const size_t)   const;
+    UInt128& operator^= (IN const UInt128&);
+    UInt128& operator&= (IN const UInt128&);
+    UInt128& operator|= (IN const UInt128&);
+    UInt128& operator<<=(IN const size_t);
+    UInt128& operator>>=(IN const size_t);
     template<typename T> explicit operator T() const;
 };
+
+// clang-format on
 
 inline UInt128::UInt128(): high(0), low(0) {}
 
@@ -92,6 +115,11 @@ inline bool UInt128::operator!() const
     return high == 0 && low == 0;
 }
 
+inline UInt128 UInt128::operator~() const
+{
+    return { ~high, ~low };
+}
+
 inline UInt128 UInt128::operator^(IN const UInt128& ref) const
 {
     return { high ^ ref.high, low ^ ref.low };
@@ -107,7 +135,7 @@ inline UInt128 UInt128::operator|(IN const UInt128& ref) const
     return { high | ref.high, low | ref.low };
 }
 
-inline UInt128 UInt128::operator<<(IN size_t shift) const
+inline UInt128 UInt128::operator<<(IN const size_t shift) const
 {
     UInt128 temp;
     if(shift < SIZE_BIT(Int64)) {
@@ -121,7 +149,7 @@ inline UInt128 UInt128::operator<<(IN size_t shift) const
     return temp;
 }
 
-inline UInt128 UInt128::operator>>(IN size_t shift) const
+inline UInt128 UInt128::operator>>(IN const size_t shift) const
 {
     UInt128 temp;
     if(shift < SIZE_BIT(Int64)) {
@@ -133,11 +161,6 @@ inline UInt128 UInt128::operator>>(IN size_t shift) const
         temp.low = high >> (shift - SIZE_BIT(Int64));
     }
     return temp;
-}
-
-inline UInt128 UInt128::operator~() const
-{
-    return { ~high, ~low };
 }
 
 inline UInt128& UInt128::operator^=(IN const UInt128& ref)
@@ -158,13 +181,13 @@ inline UInt128& UInt128::operator|=(IN const UInt128& ref)
     return *this;
 }
 
-inline UInt128& UInt128::operator<<=(IN size_t shift)
+inline UInt128& UInt128::operator<<=(IN const size_t shift)
 {
     *this = *this << shift;
     return *this;
 }
 
-inline UInt128& UInt128::operator>>=(IN size_t shift)
+inline UInt128& UInt128::operator>>=(IN const size_t shift)
 {
     *this = *this >> shift;
     return *this;

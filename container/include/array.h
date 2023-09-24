@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_ARRAY_HEADER__
-#define __SEMIBASE_ARRAY_HEADER__
+#ifndef SEMIBASE_ARRAY_HEADER__
+#define SEMIBASE_ARRAY_HEADER__
 
 #include "../../common/include/common.h"
 

@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_CHRONOGRAPH_HEADER__
-#define __SEMIBASE_CHRONOGRAPH_HEADER__
+#ifndef SBL_CHRONOGRAPH_HEADER__
+#define SBL_CHRONOGRAPH_HEADER__
 
 #include "chrono"
 #include "../../common/include/common.h"

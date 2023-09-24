@@ -3,7 +3,7 @@
 
 /*
     2023.09.24
-    Windows OS / ANSI (CP-949)
+    Write: Windows OS / ANSI (CP-949)
 */
 
 // Check OS
@@ -13,14 +13,25 @@
 #    else
 #        define X86
 #    endif
-// #else if __GNUC__
-// #    if __x86_64__ || __ppc64__
-// #        define X64
-// #    else
-// #        define X86
-// #    endif
+#elif __GNUC__
+#    if __x86_64__ || __ppc64__
+#        define X64
+#    else
+#        define X86
+#    endif
 #else
 #    error Unknown OS
+#endif
+
+// Check Endian
+#if defined(__BYTE_ORDER__)
+#    if __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+#        define BIG_ENDIAN
+#    elif __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+#        define LITTLE_ENDIAN
+#    else
+#        error Unknown Endian
+#    endif
 #endif
 
 #ifndef interface
@@ -35,11 +46,13 @@
 #    define typeof(t) decltype(t)
 #endif
 
+// MSVC / Clang
 // property, __VA_ARGS__: get / put
-#ifndef prop
-#    define prop(...) __declspec(property(__VA_ARGS__))
+#if _WIN32 || _WIN64
+#    ifndef prop
+#        define prop(...) __declspec(property(__VA_ARGS__))
+#    endif
 #endif
-// CLang: -std=c++17 -fexceptions -fdeclspec -Wall -Wextra -pedantic -Wno-unused-getter-return-value -O2
 
 #ifndef IN
 #    define IN

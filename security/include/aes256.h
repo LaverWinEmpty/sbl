@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_AES_HEADER__
-#define __SEMIBASE_AES_HEADER__
+#ifndef SEMIBASE_AES256_HEADER__
+#define SEMIBASE_AES256_HEADER__
 
 #include "string"
 #include "../../common/include/common.h"

@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_ARRAY_SOURCE__
-#define __SEMIBASE_ARRAY_SOURCE__
+#ifndef SEMIBASE_ARRAY_SOURCE__
+#define SEMIBASE_ARRAY_SOURCE__
 
 #include "../include/array.h"
 

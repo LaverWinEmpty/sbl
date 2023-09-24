@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_TIME_STAMPER_HEADER__
-#define __SEMIBASE_TIME_STAMPER_HEADER__
+#ifndef SBL_TIME_STAMPER_HEADER__
+#define SBL_TIME_STAMPER_HEADER__
 
 #include "ctime"
 #include "string"

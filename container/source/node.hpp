@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_NODE_SOURCE__
-#define __SEMIBASE_NODE_SOURCE__
+#ifndef SEMIBASE_NODE_SOURCE__
+#define SEMIBASE_NODE_SOURCE__
 
 #include "../include/node.h"
 

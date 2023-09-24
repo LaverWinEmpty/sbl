@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_ENCRYPTER_HEADER__
-#define __SEMIBASE_ENCRYPTER_HEADER__
+#ifndef SBL_CRYPT_HEADER__
+#define SBL_CRYPT_HEADER__
 
 /*
     AES256 => main

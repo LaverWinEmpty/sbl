@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_TYPE_HEADER__
-#define __SEMIBASE_TYPE_HEADER__
+#ifndef SBL_TYPE_HEADER__
+#define SBL_TYPE_HEADER__
 
 /*
     About the 'Ptr' prefix for
@@ -39,23 +39,27 @@ using WordPtr = Int32; // == WORD_PTR in windows.h
 using SzInt   = Int32; // int size: == ssize_t
 #endif
 
+// clang-format off
+
 // void* wrapper, comparison => use default
 class Ptr
 {
     void* address;
 public:
     Ptr(IN const void* param = nullptr): address(const_cast<void*>(param)) {}
-    Ptr&                      operator=(IN const void* param) { return address = const_cast<void*>(param), *this; }
-    Ptr&                      operator++() { return address = static_cast<Byte*>(address) + 1, *this; }
-    Ptr&                      operator--() { return address = static_cast<Byte*>(address) - 1, *this; }
-    Ptr                       operator++(OPT int) { return Ptr((operator++(), static_cast<Byte*>(address) - 1)); }
-    Ptr                       operator--(OPT int) { return Ptr((operator--(), static_cast<Byte*>(address) + 1)); }
+    Ptr& operator=(IN const void* param) { return address = const_cast<void*>(param), *this; }
+    Ptr& operator++() { return address = static_cast<Byte*>(address) + 1, *this; }
+    Ptr& operator--() { return address = static_cast<Byte*>(address) - 1, *this; }
+    Ptr  operator++(OPT int) { return Ptr((operator++(), static_cast<Byte*>(address) - 1)); }
+    Ptr  operator--(OPT int) { return Ptr((operator--(), static_cast<Byte*>(address) + 1)); }
     template<typename T> Ptr  operator+(IN T param) const { return Ptr(reinterpret_cast<Byte*>(address) + param); }
     template<typename T> Ptr  operator-(IN T param) const { return Ptr(reinterpret_cast<Byte*>(address) - param); }
     template<typename T> Ptr& operator+=(IN T param) { return address = static_cast<Byte*>(address) + param, *this; }
     template<typename T> Ptr& operator-=(IN T param) { return address = static_cast<Byte*>(address) - param, *this; }
     template<typename T> operator T() const { return reinterpret_cast<T>(address); }
 };
+
+// clang-format on
 
 } // namespace sbl
 #endif

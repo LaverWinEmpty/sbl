@@ -50,16 +50,16 @@ template<typename T> struct Result abstract
     };
 };
 
-template<typename T> class SVTableInspector
+template<typename T> class VTableInspector
 {
-    DECLARE_LIMIT_LIFECYCLE(SVTableInspector);
+    DECLARE_LIMIT_LIFECYCLE(VTableInspector);
     template<typename U> static __int32 Test(typeof(dynamic_cast<void*>(static_cast<U*>(nullptr)))) {}
     template<typename U> static __int64 Test(...) {}
 
     readonly bool HAS_VTABLE = sizeof(Test<T>(nullptr)) == sizeof(__int32);
 
 public:
-    static bool   HasVTable() { return SVTableInspector<T>::HAS_VTABLE; }
+    static bool   HasVTable() { return VTableInspector<T>::HAS_VTABLE; }
     static Ptr    SkipVTable(const Ptr ptr) { return HAS_VTABLE ? Ptr(static_cast<Byte*>(ptr) + sizeof(Ptr)) : ptr; }
     static size_t SizeWithoutVTable() { return HAS_VTABLE ? sizeof(T) - sizeof(Ptr) : sizeof(T); }
 };

@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_RANDOM_TOOL_HEADER__
-#define __SEMIBASE_RANDOM_TOOL_HEADER__
+#ifndef SBL_RANDOM_GENERATOR_HEADER__
+#define SBL_RANDOM_GENERATOR_HEADER__
 
 #include "thread"
 #include "../../utilities/include/xoshiro256.h"

@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_RED_BLACK_TREE_HEADER__
-#define __SEMIBASE_RED_BLACK_TREE_HEADER__
+#ifndef SEMIBASE_RED_BLACK_TREE_HEADER__
+#define SEMIBASE_RED_BLACK_TREE_HEADER__
 
 #include "../source/node.hpp"
 

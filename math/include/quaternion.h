@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_QUATERNION_HEADER__
-#define __SEMIBASE_QUATERNION_HEADER__
+#ifndef SBL_QUATERNION_HEADER__
+#define SBL_QUATERNION_HEADER__
 
 #include "gfxMath.h"
 

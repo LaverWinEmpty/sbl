@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_VECTOR_2_HEADER__
-#define __SEMIBASE_VECTOR_2_HEADER__
+#ifndef SBL_VECTOR_2D_HEADER__
+#define SBL_VECTOR_2D_HEADER__
 
 #include "gfxMath.h"
 

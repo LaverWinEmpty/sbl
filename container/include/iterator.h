@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_ITERATOR_HEADER__
-#define __SEMIBASE_ITERATOR_HEADER__
+#ifndef SEMIBASE_ITERATOR_HEADER__
+#define SEMIBASE_ITERATOR_HEADER__
 
 #include "../source/node.hpp"
 

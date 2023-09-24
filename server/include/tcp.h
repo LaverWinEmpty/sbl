@@ -6,8 +6,8 @@
                         ... | Data ] [ Data Size | Data ] [ DataSize | ...
 */
 
-#ifndef __SEMIBASE_WINDOWS_IOCP_HEADER__
-#define __SEMIBASE_WINDOWS_IOCP_HEADER__
+#ifndef SBL_TCP_HEADER__
+#define SBL_TCP_HEADER__
 
 #define _WINSOCKAPI_
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
