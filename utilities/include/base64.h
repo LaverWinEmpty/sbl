@@ -1,5 +1,5 @@
-#ifndef SBL_DATA_CONVERT_HEADER__
-#define SBL_DATA_CONVERT_HEADER__
+#ifndef SBL_BASE64_HEADER__
+#define SBL_BASE64_HEADER__
 
 #include "string"
 #include "../../common/include/common.h"
