@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_LOG_SOURCE__
-#define __SEMIBASE_LOG_SOURCE__
+#ifndef SBL_LOG_SOURCE__
+#define SBL_LOG_SOURCE__
 
 #include "../include/log.h"
 

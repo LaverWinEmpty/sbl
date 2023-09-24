@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_MEMORYPOOL_SOURCE__
-#define __SEMIBASE_MEMORYPOOL_SOURCE__
+#ifndef SBL_MEMORYPOOL_SOURCE__
+#define SBL_MEMORYPOOL_SOURCE__
 
 #include "../include/memPool.h"
 

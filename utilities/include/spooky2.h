@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_HASH_SPOOKY_V2_HEADER__
-#define __SEMIBASE_HASH_SPOOKY_V2_HEADER__
+#ifndef SBL_HASH_SPOOKY_V2_HEADER__
+#define SBL_HASH_SPOOKY_V2_HEADER__
 
 #include "cstring"
 #include "../../common/include/common.h"

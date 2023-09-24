@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_MEMORYPOOL_HEADER__
-#define __SEMIBASE_MEMORYPOOL_HEADER__
+#ifndef SBL_MEMORYPOOL_HEADER__
+#define SBL_MEMORYPOOL_HEADER__
 
 #include "../common/include/common.h"
 

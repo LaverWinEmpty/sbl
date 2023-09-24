@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_DATA_CONVERT_HEADER__
-#define __SEMIBASE_DATA_CONVERT_HEADER__
+#ifndef SBL_DATA_CONVERT_HEADER__
+#define SBL_DATA_CONVERT_HEADER__
 
 #include "string"
 #include "../../common/include/common.h"

@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_XOSHIRO_256_HEADER__
-#define __SEMIBASE_XOSHIRO_256_HEADER__
+#ifndef SBL_XOSHIRO_256_HEADER__
+#define SBL_XOSHIRO_256_HEADER__
 
 #include "../../common/include/common.h"
 #include "../../common/include/block.h"

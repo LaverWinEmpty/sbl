@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_LOG_HEADER__
-#define __SEMIBASE_LOG_HEADER__
+#ifndef SBL_LOG_HEADER__
+#define SBL_LOG_HEADER__
 
 #include "iostream"
 #include "fstream"

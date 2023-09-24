@@ -1,3 +1,6 @@
+#ifndef SBL_COUNTER_SOURCE__
+#define SBL_COUNTER_SOURCE__
+
 #include "../include/counter.h"
 
 namespace sbl {
@@ -122,3 +125,4 @@ template<typename T> void Counter<T>::PostSetOverlapped()
 }
 
 } // namespace sbl
+#endif
