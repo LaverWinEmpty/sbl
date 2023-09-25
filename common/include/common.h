@@ -10,8 +10,8 @@ namespace sbl {
 
 template<typename T, typename U> struct Pair
 {
-    T key;
-    U value;
+    T key = T();
+    U value = U();
 
     Pair operator=(IN const U& param) { return value = param, *this; }
     bool operator==(IN const Pair<T, U>& ref) const { return key == ref.key; }

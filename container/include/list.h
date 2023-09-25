@@ -1,5 +1,5 @@
-#ifndef SEMIBASE_DOUBLY_LINKED_LIST_HEADER__
-#define SEMIBASE_DOUBLY_LINKED_LIST_HEADER__
+#ifndef SBL_DOUBLY_LINKED_LIST_HEADER__
+#define SBL_DOUBLY_LINKED_LIST_HEADER__
 
 #include "../source/node.hpp"
 
@@ -25,7 +25,7 @@ namespace sbl {
 template<typename T> class List
 {
 public:
-    template<typename U> using PfnCompare = bool (*)(const T&, const U&);
+    template<typename U> using FnCompare = bool (*)(const T&, const U&);
 
 public:
     List();
@@ -36,8 +36,8 @@ public:
     T& operator[](IN int index); // Find By Index
 
 public:
-    template<typename U> T*    Find(IN const U& data, IN PfnCompare<U> proc = CompareEqual);
-    template<typename U> SzInt GetIndex(IN const U& data, IN PfnCompare<U> proc = CompareEqual);
+    template<typename U> T*    Find(IN const U& data, IN FnCompare<U> proc = CompareEqual);
+    template<typename U> SzInt GetIndex(IN const U& data, IN FnCompare<U> proc = CompareEqual);
 
 public:
     SzInt Size() const;
@@ -58,8 +58,8 @@ public:
     void Clear();                     // All
 
 public:
-    void Sort(IN PfnCompare<T> proc = CompareAscending);
-    void Sort(IN int min, IN int max, IN PfnCompare<T> proc = CompareAscending);
+    void Sort(IN FnCompare<T> proc = CompareAscending);
+    void Sort(IN int min, IN int max, IN FnCompare<T> proc = CompareAscending);
 
 public:
     Node<T>* Begin() { return head; }
@@ -77,8 +77,8 @@ private:
     void UpdateCache(IN int index, IN OPT Node<T>* node = nullptr); // nullptr == no delete
 
 private:
-    void Partition(IN Node<T>*, IN Node<T>*, IN int, IN int, IN Node<T>**, IN int*, IN PfnCompare<T>);
-    void QuickSortRecursion(IN Node<T>*, IN Node<T>*, IN int, IN int, IN PfnCompare<T>);
+    void Partition(IN Node<T>*, IN Node<T>*, IN int, IN int, IN Node<T>**, IN int*, IN FnCompare<T>);
+    void QuickSortRecursion(IN Node<T>*, IN Node<T>*, IN int, IN int, IN FnCompare<T>);
 
 private:
     template<typename Other> static bool CompareEqual(IN const T& data, IN const Other& other) { return data == other; }

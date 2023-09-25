@@ -1,5 +1,5 @@
-#ifndef SEMIBASE_RED_BLACK_TREE_SOURCE_
-#define SEMIBASE_RED_BLACK_TREE_SOURCE_
+#ifndef SBL_RED_BLACK_TREE_SOURCE_
+#define SBL_RED_BLACK_TREE_SOURCE_
 
 #include "../include/tree.h"
 #include "array.hpp"
@@ -37,7 +37,7 @@ template<typename T> void ColorNode<T>::DestroySubTree()
     DestroySubTreeRecursion();
 }
 
-template<typename T> void ColorNode<T>::SetLeft(IN PtrClrNode<T> param)
+template<typename T> void ColorNode<T>::SetLeft(IN ColorNode<T>* param)
 {
     if(param != nullptr) {
         param->_parent = this;
@@ -45,7 +45,7 @@ template<typename T> void ColorNode<T>::SetLeft(IN PtrClrNode<T> param)
     this->left = static_cast<Node<T>*>(param);
 }
 
-template<typename T> void ColorNode<T>::SetRight(IN PtrClrNode<T> param)
+template<typename T> void ColorNode<T>::SetRight(IN ColorNode<T>* param)
 {
     if(param != nullptr) {
         param->_parent = this;
@@ -53,7 +53,7 @@ template<typename T> void ColorNode<T>::SetRight(IN PtrClrNode<T> param)
     this->right = static_cast<Node<T>*>(param);
 }
 
-template<typename T> PtrClrNode<T> ColorNode<T>::GetGrandParent()
+template<typename T> ColorNode<T>* ColorNode<T>::GetGrandParent()
 {
     if(IsRoot() == true) {
         return nullptr;
@@ -61,7 +61,7 @@ template<typename T> PtrClrNode<T> ColorNode<T>::GetGrandParent()
     return _parent->_parent;
 }
 
-template<typename T> PtrClrNode<T> ColorNode<T>::GetSibling()
+template<typename T> ColorNode<T>* ColorNode<T>::GetSibling()
 {
     if(IsRoot() == true) {
         return nullptr;
@@ -72,10 +72,10 @@ template<typename T> PtrClrNode<T> ColorNode<T>::GetSibling()
     else return Parent->Left;
 }
 
-template<typename T> PtrClrNode<T> ColorNode<T>::GetUncle()
+template<typename T> ColorNode<T>* ColorNode<T>::GetUncle()
 {
-    PtrClrNode<T> p  = Parent;
-    PtrClrNode<T> gp = GrandParent;
+    ColorNode<T>* p  = Parent;
+    ColorNode<T>* gp = GrandParent;
     if(gp == nullptr) {
         return nullptr;
     }
@@ -96,7 +96,7 @@ template<typename T> int ColorNode<T>::GetLevel()
     return 1 + _parent->GetLevel();
 }
 
-template<typename T> void Tree<T>::RotateLeft(IN PtrClrNode<T> param)
+template<typename T> void Tree<T>::RotateLeft(IN ColorNode<T>* param)
 {
     //  P         // Parent
     //   ¢Ù
@@ -104,7 +104,7 @@ template<typename T> void Tree<T>::RotateLeft(IN PtrClrNode<T> param)
     //   ¢×   ¢Ù
     //  L       R // Left and Right
 
-    PtrClrNode<T> r = param->Right;
+    ColorNode<T>* r = param->Right;
 
     //  P
     //   ¢Ù
@@ -146,11 +146,11 @@ template<typename T> void Tree<T>::RotateLeft(IN PtrClrNode<T> param)
     param->Parent = r;
 }
 
-template<typename T> void Tree<T>::RotateRight(IN PtrClrNode<T> param)
+template<typename T> void Tree<T>::RotateRight(IN ColorNode<T>* param)
 {
     // Same as RotateLeft, but in reverse
 
-    PtrClrNode<T> l = param->Left;
+    ColorNode<T>* l = param->Left;
 
     param->Left = l->Right;
     if(l->Right->IsNil() == false) {
@@ -172,7 +172,7 @@ template<typename T> void Tree<T>::RotateRight(IN PtrClrNode<T> param)
     param->Parent = l;
 }
 
-template<typename T> void Tree<T>::Transplant(IN PtrClrNode<T> param, IN PtrClrNode<T> old)
+template<typename T> void Tree<T>::Transplant(IN ColorNode<T>* param, IN ColorNode<T>* old)
 {
     // N: Any node
     // P: Param
@@ -199,9 +199,11 @@ template<typename T> void Tree<T>::Transplant(IN PtrClrNode<T> param, IN PtrClrN
     }
 }
 
-template<typename T> void Tree<T>::FixInsert(IN PtrClrNode<T> param)
+template<typename T> void Tree<T>::FixInsert(IN ColorNode<T>* param)
 {
-    PtrClrNode<T> p, gp, u;
+    ColorNode<T>* p;
+    ColorNode<T>* gp;
+    ColorNode<T>* u;
 
     while(param->IsRoot() == false && param->IsRed() == true && param->Parent->IsRed() == true) {
         p  = param->Parent;
@@ -245,9 +247,10 @@ template<typename T> void Tree<T>::FixInsert(IN PtrClrNode<T> param)
     _root->SetBlack();
 }
 
-template<typename T> void Tree<T>::FixRemove(IN PtrClrNode<T> param)
+template<typename T> void Tree<T>::FixRemove(IN ColorNode<T>* param)
 {
-    PtrClrNode<T> s, p;
+    ColorNode<T>* s;
+    ColorNode<T>* p;
 
     while((param->IsNull() == true || param->IsBlack() == true) && (param != _root)) {
         s = param->Sibling;
@@ -328,7 +331,7 @@ template<typename T> void Tree<T>::FixRemove(IN PtrClrNode<T> param)
     }
 }
 
-template<typename T> PtrClrNode<T> Tree<T>::FindMinimum(IN PtrClrNode<T> cursor)
+template<typename T> ColorNode<T>* Tree<T>::FindMinimum(IN ColorNode<T>* cursor)
 {
     while(cursor->Left->IsNull() == false) {
         cursor = cursor->Left;
@@ -342,7 +345,7 @@ template<typename T> PtrClrNode<T> Tree<T>::FindMinimum(IN PtrClrNode<T> cursor)
 // nullptr: Not exist
 template<typename T> T* Tree<T>::Find(IN const T& ref)
 {
-    PtrClrNode<T> n = Search(ref);
+    ColorNode<T>* n = Search(ref);
     if(n == nullptr) {
         return nullptr;
     }
@@ -350,23 +353,23 @@ template<typename T> T* Tree<T>::Find(IN const T& ref)
 }
 
 // nullptr: Not exist
-template<typename T> template<typename Other> T* Tree<T>::Find(IN const Other& other, IN const PfnCompare<Other> fnComp)
+template<typename T> template<typename Other> T* Tree<T>::Find(IN const Other& other, IN const FnCompare<Other> fnComp)
 {
-    PtrClrNode<T> cursor = _root;
+    ColorNode<T>* cursor = _root;
     while(cursor->IsNull() == false) {
-        switch(PfnCompare(cursor->data)) {
-            case EComparison::LESS: cursor = cursor->Left;
-            case EComparison::EQUAL: return cursor->GetDataAddress;
-            case EComparison::MORE: cursor = cursor->Right;
+        switch(fnComp(cursor->Data, other)) {
+            case EComparison::LESS: cursor = cursor->Left; break;
+            case EComparison::EQUAL: return cursor->GetDataAddress(); break;
+            case EComparison::MORE: cursor = cursor->Right; break;
         }
     }
     return nullptr;
 }
 
 // nullptr: Not exist
-template<typename T> PtrClrNode<T> Tree<T>::Search(IN const T& ref)
+template<typename T> ColorNode<T>* Tree<T>::Search(IN const T& ref)
 {
-    PtrClrNode<T> cursor = _root;
+    ColorNode<T>* cursor = _root;
     while(cursor->IsNull() == false) {
         if(ref < cursor->Data) {
             cursor = cursor->Left;
@@ -380,11 +383,11 @@ template<typename T> PtrClrNode<T> Tree<T>::Search(IN const T& ref)
     return nullptr;
 }
 
-// nullptr: Exist
-template<typename T> PtrClrNode<T> Tree<T>::SearchForInsert(const T& ref)
+// Get parent, nullptr: Exist
+template<typename T> ColorNode<T>* Tree<T>::SearchForInsert(const T& ref)
 {
-    PtrClrNode<T> cursor = _root;
-    PtrClrNode<T> parent = nullptr;
+    ColorNode<T>* cursor = _root;
+    ColorNode<T>* parent = nullptr;
 
     while(cursor->IsNull() == false) {
         parent = cursor;
@@ -401,10 +404,31 @@ template<typename T> PtrClrNode<T> Tree<T>::SearchForInsert(const T& ref)
     return parent;
 }
 
+// MUST COMPARE AFTER CALLING THIS METHOD.
+// Not Exist => Parent
+// Exist     => Current
+template<typename T>
+template<typename Other>
+ColorNode<T>* Tree<T>::SearchInsertionPointParent(IN const Other& other, IN const FnCompare<Other> fnComp)
+{
+    ColorNode<T>* cursor = _root;
+    ColorNode<T>* parent = nullptr;
+
+    while(cursor->IsNull() == false) {
+        switch(fnComp(cursor->Data, other)) {
+            case EComparison::LESS: cursor = cursor->Left; break;
+            case EComparison::MORE: cursor = cursor->Right; break;
+            case EComparison::EQUAL: return cursor;
+        }
+    }
+
+    return parent;
+}
+
 // true: Succeed
 template<typename T> bool Tree<T>::Insert(const T& ref)
 {
-    PtrClrNode<T> newNode = new ColorNode<T>(ref);
+    ColorNode<T>* newNode = new ColorNode<T>(ref);
 
     if(_root->IsNull() == true) {
         _root = newNode;
@@ -412,7 +436,7 @@ template<typename T> bool Tree<T>::Insert(const T& ref)
         return true;
     }
 
-    PtrClrNode<T> parent = SearchForInsert(ref);
+    ColorNode<T>* parent = SearchForInsert(ref);
     if(parent->IsNull() == true) {
         return false;
     }
@@ -435,7 +459,8 @@ template<typename T> bool Tree<T>::Insert(const T& ref)
 
 template<typename T> bool Tree<T>::Remove(const T& ref)
 {
-    PtrClrNode<T> node, child;
+    ColorNode<T>* node;
+    ColorNode<T>* child;
 
     node = Search(ref);
     if(node == nullptr) {
@@ -444,7 +469,7 @@ template<typename T> bool Tree<T>::Remove(const T& ref)
 
     // The minimum value in the right subtree
     // This node is moved to the location of the node to be deleted.
-    PtrClrNode<T> min = FindMinimum(node->Right);
+    ColorNode<T>* min = FindMinimum(node->Right);
 
     // Node's children is full
     if(node->HasTwoChildren() == true) {
@@ -495,7 +520,7 @@ template<typename T> bool Tree<T>::Remove(const T& ref)
     return true;
 }
 
-template<typename T> int Tree<T>::GetHeight(IN PtrClrNode<T> param)
+template<typename T> int Tree<T>::GetHeight(IN ColorNode<T>* param)
 {
     if(param->IsNull() == true) {
         return 0;
@@ -512,7 +537,7 @@ template<typename T> int Tree<T>::GetHeight()
     return Tree<T>::GetHeight(_root);
 }
 
-template<typename T> void Tree<T>::Inorder(IN PfnOrder proc, IN PtrClrNode<T> node)
+template<typename T> void Tree<T>::Inorder(IN PfnOrder proc, IN ColorNode<T>* node)
 {
     if(node->IsNull() == true) {
         return;
@@ -523,7 +548,7 @@ template<typename T> void Tree<T>::Inorder(IN PfnOrder proc, IN PtrClrNode<T> no
     Inorder(proc, node->Right);
 }
 
-template<typename T> void Tree<T>::Preorder(IN PfnOrder proc, IN PtrClrNode<T> node)
+template<typename T> void Tree<T>::Preorder(IN PfnOrder proc, IN ColorNode<T>* node)
 {
     if(node->IsNull() == true) {
         return;
@@ -534,7 +559,7 @@ template<typename T> void Tree<T>::Preorder(IN PfnOrder proc, IN PtrClrNode<T> n
     Preorder(proc, node->Right);
 }
 
-template<typename T> void Tree<T>::Postorder(IN PfnOrder proc, IN PtrClrNode<T> node)
+template<typename T> void Tree<T>::Postorder(IN PfnOrder proc, IN ColorNode<T>* node)
 {
     if(node->IsNull() == true) {
         return;
@@ -545,18 +570,18 @@ template<typename T> void Tree<T>::Postorder(IN PfnOrder proc, IN PtrClrNode<T> 
     proc(node);
 }
 
-template<typename T> void Tree<T>::Levelorder(IN PfnOrder proc, IN PtrClrNode<T> node)
+template<typename T> void Tree<T>::Levelorder(IN PfnOrder proc, IN ColorNode<T>* node)
 {
     if(node->IsNull() == true) {
         return;
     }
 
-    Queue<PtrClrNode<T>> q;
+    Queue<ColorNode<T>*> q;
 
     q.Enque(node);
 
     while(q.IsEmpty() == false) {
-        PtrClrNode<T> node = q.Front();
+        ColorNode<T>* node = q.Front();
         q.Deque();
 
         proc(node);

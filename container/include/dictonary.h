@@ -1,10 +1,10 @@
 // ÇØ½ÃÅ×ÀÌºí
 // ±ÍÂú´Ù
 
-#ifndef SEMIBASE_HASH_TABLE_HEADER__
-#define SEMIBASE_HASH_TABLE_HEADER__
+#ifndef SBL_HASH_TABLE_HEADER__
+#define SBL_HASH_TABLE_HEADER__
 
-#include "../../utilities/include/spooky2.h"
+#include "../../utilities/include/crc32.h"
 
 namespace sbl {
 

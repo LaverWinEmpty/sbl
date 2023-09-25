@@ -1,5 +1,5 @@
-#ifndef SEMIBASE_DOUBLY_LINKED_LIST_SOURCE__
-#define SEMIBASE_DOUBLY_LINKED_LIST_SOURCE__
+#ifndef SBL_DOUBLY_LINKED_LIST_SOURCE__
+#define SBL_DOUBLY_LINKED_LIST_SOURCE__
 
 #include "../include/list.h"
 
@@ -31,7 +31,7 @@ template<typename T> List<T>::~List()
 template<typename T> T& List<T>::operator[](IN int index)
 {
     if(0 > index || index >= size) {
-        throw SErrorBuilder::OutOfRange();
+        throw ErrorBuilder::OutOfRange();
     }
 
     // Init
@@ -70,7 +70,7 @@ template<typename T> T& List<T>::operator[](IN int index)
 }
 
 // nullptr: Not exist
-template<typename T> template<typename U> T* List<T>::Find(IN const U& data, IN List::PfnCompare<U> proc)
+template<typename T> template<typename U> T* List<T>::Find(IN const U& data, IN List::FnCompare<U> proc)
 {
     Node<T>* curr = head;
     for(SzInt i = 0; i < size; ++i) {
@@ -83,7 +83,7 @@ template<typename T> template<typename U> T* List<T>::Find(IN const U& data, IN 
 }
 
 // -1: Not exist
-template<typename T> template<typename U> SzInt List<T>::GetIndex(IN const U& data, IN List::PfnCompare<U> proc)
+template<typename T> template<typename U> SzInt List<T>::GetIndex(IN const U& data, IN List::FnCompare<U> proc)
 {
     for(SzInt i = 0; i < size; ++i) {
         if(proc(this[i], data)) {
@@ -98,7 +98,7 @@ template<typename T> void List<T>::AddDataForTheFirst(IN T data)
 {
     Node<T>* newNode = new Node<T>;
     if(newNode == nullptr) {
-        throw SErrorBuilder::NewFailed();
+        throw ErrorBuilder::NewFailed();
     }
 
     newNode->data = data;
@@ -114,7 +114,7 @@ template<typename T> void List<T>::AddDataForBegin(IN T data)
 {
     Node<T>* newNode = new Node<T>(data);
     if(newNode == nullptr) {
-        throw SErrorBuilder::NewFailed();
+        throw ErrorBuilder::NewFailed();
     }
 
     newNode->right = head;
@@ -130,7 +130,7 @@ template<typename T> void List<T>::AddDataForEnd(IN T data)
 {
     Node<T>* newNode = new Node<T>;
     if(newNode == nullptr) {
-        throw SErrorBuilder::NewFailed();
+        throw ErrorBuilder::NewFailed();
     }
     newNode->data = data;
 
@@ -146,7 +146,7 @@ template<typename T> void List<T>::AddDataForEnd(IN T data)
 template<typename T> void List<T>::ReleaseNode(IN Node<T>* deleteNode, IN int index)
 {
     if(size == 0) {
-        throw SErrorBuilder::OutOfRange();
+        throw ErrorBuilder::OutOfRange();
     }
 
     // Left is null == delete node is first
@@ -214,7 +214,7 @@ template<typename T> void List<T>::Add(IN T data, IN int index)
 {
 
     if(0 > index || index > size) {
-        throw SErrorBuilder::OutOfRange();
+        throw ErrorBuilder::OutOfRange();
     }
     if(size == 0) {
         AddDataForTheFirst(data);
@@ -229,7 +229,7 @@ template<typename T> void List<T>::Add(IN T data, IN int index)
 
     Node<T>* newNode = new Node<T>(data);
     if(newNode == nullptr) {
-        throw SErrorBuilder::NewFailed();
+        throw ErrorBuilder::NewFailed();
         return;
     }
 
@@ -308,7 +308,9 @@ template<typename T> void List<T>::Remove(IN const T& find)
 
 template<typename T> void List<T>::RemoveAll(IN const T& find)
 {
-    Node<T>*del, temp = head;
+    Node<T>* del;
+    Node<T>* temp = head;
+
     for(int i = 0; i < size; ++i) {
         if(temp->data == find) {
             del  = temp;
@@ -325,7 +327,9 @@ template<typename T> void List<T>::RemoveAll(IN const T& find)
 
 template<typename T> void List<T>::Clear()
 {
-    Node<T>*del, temp = head;
+    Node<T>* del;
+    Node<T>* temp = head;
+
     while(temp != nullptr) {
         del  = temp;
         temp = temp->right;
@@ -373,7 +377,7 @@ template<typename T> void List<T>::UpdateCache(IN int changedNodeIndex, IN Node<
     }
 }
 
-template<typename T> void List<T>::Sort(IN PfnCompare<T> proc)
+template<typename T> void List<T>::Sort(IN FnCompare<T> proc)
 {
     if(size <= 1) {
         return;
@@ -384,7 +388,7 @@ template<typename T> void List<T>::Sort(IN PfnCompare<T> proc)
 }
 
 // Throw ErrMsg
-template<typename T> void List<T>::Sort(IN int min, IN int max, IN PfnCompare<T> proc)
+template<typename T> void List<T>::Sort(IN int min, IN int max, IN FnCompare<T> proc)
 {
     if(size <= 1) {
         return;
@@ -401,7 +405,7 @@ template<typename T> void List<T>::Sort(IN int min, IN int max, IN PfnCompare<T>
 
 template<typename T>
 void List<T>::Partition(IN Node<T>* left, IN Node<T>* right, IN int groupIndexMin, IN int groupIndexMax,
-                        IN Node<T>** pivotNodePtr, IN int* NewPivotIndex, IN PfnCompare<T> proc)
+                        IN Node<T>** pivotNodePtr, IN int* NewPivotIndex, IN FnCompare<T> proc)
 {
     // Pivot
     T pivot = left->data;
@@ -447,7 +451,7 @@ void List<T>::Partition(IN Node<T>* left, IN Node<T>* right, IN int groupIndexMi
 
 template<typename T>
 void List<T>::QuickSortRecursion(IN Node<T>* left, IN Node<T>* right, IN int groupIndexMin, IN int groupIndexMax,
-                                 IN PfnCompare<T> proc)
+                                 IN FnCompare<T> proc)
 {
     // End recursive
     if(groupIndexMin >= groupIndexMax) {
