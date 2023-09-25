@@ -1,12 +1,42 @@
-#ifndef SEMIBASE_ARRAY_SOURCE__
-#define SEMIBASE_ARRAY_SOURCE__
+#ifndef SBL_ARRAY_SOURCE__
+#define SBL_ARRAY_SOURCE__
 
 #include "../include/array.h"
 
 namespace sbl {
 
+template<typename T, UWord n> Array<T, n>::~Array()
+{
+    SAFE_DELETES(mem);
+}
+
+template<typename T, UWord n> SzInt Array<T, n>::GetSize()
+{
+    return size;
+}
+
+template<typename T, UWord n> SzInt Array<T, n>::GetCapacity()
+{
+    return capacity;
+}
+
+template<typename T, UWord n> bool Array<T, n>::IsEmpty()
+{
+    return size == 0;
+}
+
+template<typename T, UWord n> bool Array<T, n>::IsFull()
+{
+    return size >= capacity;
+}
+
+template<typename T, UWord n> bool Array<T, n>::IsValueDecreasing()
+{
+    return size <= (capacity - (int)(n + (n >> 1)));
+}
+
 // Throw ErrMsg
-template<typename T, UWord n> void Array<T, n>::Reallocation(IN size_t dataSize)
+template<typename T, UWord n> void Array<T, n>::Reallocation(IN SzInt dataSize)
 {
     if(dataSize == capacity) {
         return;
@@ -18,7 +48,7 @@ template<typename T, UWord n> void Array<T, n>::Reallocation(IN size_t dataSize)
     }
 
     // Move
-    for(size_t i = 0; i < dataSize; ++i) {
+    for(SzInt i = 0; i < dataSize; ++i) {
         newMem[i] = mem[i];
     }
 
@@ -26,24 +56,24 @@ template<typename T, UWord n> void Array<T, n>::Reallocation(IN size_t dataSize)
     mem = newMem;
 }
 
-template<typename T, UWord n> void Array<T, n>::IncreaseMemory(IN int incMem)
+template<typename T, UWord n> void Array<T, n>::IncreaseMemory(IN SzInt incMem)
 {
     if(incMem < 0) {
         return;
     }
 
-    int oldSize = capacity;
+    SzInt oldSize = capacity;
     capacity += incMem;
     Reallocation(oldSize);
 }
 
-template<typename T, UWord n> void Array<T, n>::DecreaseMemory(IN int decMem)
+template<typename T, UWord n> void Array<T, n>::DecreaseMemory(IN SzInt decMem)
 {
     if(decMem < 0) {
         return;
     }
 
-    int newSize = capacity - decMem;
+    SzInt newSize = capacity - decMem;
     capacity -= decMem;
     Reallocation(newSize);
 }
@@ -53,15 +83,15 @@ template<typename T, UWord n> Array<T, n>::Array()
     IncreaseMemory();
 }
 
-template<typename T, UWord n> T& Array<T, n>::operator[](IN int index)
+template<typename T, UWord n> T& Array<T, n>::operator[](IN SzInt index)
 {
     if(index < 0) {
         return mem[0];
     }
 
     if(index >= capacity) {
-        int incMem = index - size;
-        incMem     = (incMem / n + 1) * n; // Round up
+        SzInt incMem = index - size;
+        incMem       = (incMem / n + 1) * n; // Round up
         IncreaseMemory(incMem);
         size = index;
     }
@@ -91,7 +121,7 @@ template<typename T, UWord n> bool Array<T, n>::Pop()
     return true;
 }
 
-template<typename T, UWord n> bool Array<T, n>::Remove(IN int index)
+template<typename T, UWord n> bool Array<T, n>::Remove(IN SzInt index)
 {
     if(index < 0 || index >= capacity) {
         return false;

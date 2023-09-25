@@ -1,5 +1,5 @@
-#ifndef SEMIBASE_ARRAY_HEADER__
-#define SEMIBASE_ARRAY_HEADER__
+#ifndef SBL_ARRAY_HEADER__
+#define SBL_ARRAY_HEADER__
 
 #include "../../common/include/common.h"
 
@@ -19,38 +19,36 @@ namespace sbl {
 template<typename T, UWord sizeUnit = 10> class Array
 {
 private:
-    void Reallocation(IN size_t dataSize);
-    void IncreaseMemory(IN int incMem = sizeUnit);
-    void DecreaseMemory(IN int decMem = sizeUnit);
+    void Reallocation(IN SzInt dataSize);
+    void IncreaseMemory(IN SzInt incMem = sizeUnit);
+    void DecreaseMemory(IN SzInt decMem = sizeUnit);
 
 public:
     Array();
-    ~Array() { SAFE_DELETES(mem); }
-    T& operator[](int index);
+    ~Array();
+    T& operator[](SzInt index);
 
 public:
-    int GetSize() { return size; }
-    int GetCapacity() { return capacity; }
-
-public:
-    prop(get = GetSize) int Size;
-    prop(get = GetCapacity) int Capacity;
-
-public:
-    bool IsEmpty() { return size == 0; }
+    SzInt GetSize();
+    SzInt GetCapacity();
+    bool  IsEmpty();
 
 private:
-    bool IsFull() { return size >= capacity; }
-    bool IsValueDecreasing() { return size <= (capacity - (int)(sizeUnit + (sizeUnit >> 1))); }
+    bool IsFull();
+    bool IsValueDecreasing();
 
 public:
     void Push(IN const T& ref);
     bool Pop();
-    bool Remove(IN int index);
+    bool Remove(IN SzInt index);
+
+public:
+    prop(get = GetSize) SzInt Size;
+    prop(get = GetCapacity) SzInt Capacity;
 
 private:
     SzInt size     = 0;
-    int   capacity = 0;
+    SzInt capacity = 0;
     T*    mem      = nullptr;
 };
 
