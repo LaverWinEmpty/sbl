@@ -6,6 +6,7 @@
     Write: Windows OS / ANSI (CP-949)
 */
 
+
 // Check OS
 #if _WIN32 || _WIN64
 #    if _WIN64
@@ -196,14 +197,32 @@
     do {                                                                                                               \
         __int64 loop_count_in_fast_loop_macro = (static_cast<__int64>(loop) + 7) >> 3;                                 \
         if(loop > 0) switch(loop & 0b111) {                                                                            \
-                case 0: do { procedure;                                                                                \
-                        case 7: procedure;                                                                             \
-                        case 6: procedure;                                                                             \
-                        case 5: procedure;                                                                             \
-                        case 4: procedure;                                                                             \
-                        case 3: procedure;                                                                             \
-                        case 2: procedure;                                                                             \
-                        case 1: procedure;                                                                             \
+                case 0: do { procedure                                                                                 \
+                        case 7: procedure                                                                              \
+                        case 6: procedure                                                                              \
+                        case 5: procedure                                                                              \
+                        case 4: procedure                                                                              \
+                        case 3: procedure                                                                              \
+                        case 2: procedure                                                                              \
+                        case 1: procedure                                                                              \
+                    } while(--loop_count_in_fast_loop_macro > 0);                                                      \
+            }                                                                                                          \
+    } while(false)
+
+// Duff's device (with init like for statement)
+#define FAST_FOR(init, loop, procedure)                                                                                \
+    do {                                                                                                               \
+        init;                                                                                                          \
+        __int64 loop_count_in_fast_loop_macro = (static_cast<__int64>(loop) + 7) >> 3;                                 \
+        if(loop > 0) switch(loop & 0b111) {                                                                            \
+                case 0: do { procedure                                                                                 \
+                        case 7: procedure                                                                              \
+                        case 6: procedure                                                                              \
+                        case 5: procedure                                                                              \
+                        case 4: procedure                                                                              \
+                        case 3: procedure                                                                              \
+                        case 2: procedure                                                                              \
+                        case 1: procedure                                                                              \
                     } while(--loop_count_in_fast_loop_macro > 0);                                                      \
             }                                                                                                          \
     } while(false)
