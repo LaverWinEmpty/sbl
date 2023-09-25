@@ -11,7 +11,7 @@
 //
 // About SSE 4.2
 //  CRC32  => not use
-//  CRC32C => use include nmmintrin.h
+//  CRC32C => use include nmmintrin.h (or immintrin.h, etc... )
 //            if not, use CRC32 process
 
 namespace sbl {
@@ -26,7 +26,7 @@ private:
 
 public:
     static UInt32 Hasing(IN Ptr ptr, IN SzInt size);
-    static UInt32 HasingCRC32C(IN Ptr ptr, IN SzInt size);
+    static UInt32 Castagnoli(IN Ptr ptr, IN SzInt size);
 };
 
 } // namespace sbl

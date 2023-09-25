@@ -24,7 +24,8 @@ UInt32 CRC32::Hasing(IN Ptr ptr, IN SzInt size)
     return Process(ptr, size, -1, POLY);
 }
 
-UInt32 CRC32::HasingCRC32C(const Ptr ptr, SzInt size)
+// High-speed processing functions (when SSE 4.2 is available)
+UInt32 CRC32::Castagnoli(const Ptr ptr, SzInt size)
 {
     unsigned char* data = ptr;
     unsigned int   crc  = -1;
