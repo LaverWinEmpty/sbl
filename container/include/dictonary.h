@@ -21,7 +21,7 @@ private:
 
 public:
     void   Insert(IN const Key& key, IN Value data);
-    Value& Find(IN const Key& key, IN SzInt index);
+    Value& Find(IN const Key& key);
     void   Remove(IN const Key& key, IN const Value& value);
 
 private:

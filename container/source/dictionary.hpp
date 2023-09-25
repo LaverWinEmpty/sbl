@@ -25,23 +25,26 @@ template<typename K, typename V, SzInt n> void Dictionary<K, V, n>::Insert(IN co
     buckets[GetKey(key)].Push(value);
 }
 
-template<typename K, typename V, SzInt n> V& Dictionary<K, V, n>::Find(IN const K& key, IN SzInt index)
+template<typename K, typename V, SzInt n> V& Dictionary<K, V, n>::Find(IN const K& key)
 {
-    SzInt bucket = GetKey(key);
-    if(index >= buckets[bucket].Size) {
+    Array<V>& arr = buckets[GetKey(key)];
+
+    SzInt index = arr.Size - 1;
+    if(index < 0) {
         throw ErrorBuilder::OutOfRange();
     }
-    return buckets[bucket][index];
+
+    return arr[index];
 }
 
 template<typename K, typename V, SzInt n> void Dictionary<K, V, n>::Remove(IN const K& key, IN const V& value)
 {
     SzInt bucket = CRC32::Castagnoli(&key, sizeof(K));
 
-    Array<V>* arr = buckets[bucket];
+    Array<V>& arr = buckets[bucket];
     for(int i = 0; i < arr->Size(); ++i) {
         if(arr[i] == value) {
-            arr->Remove(value);
+            arr.Remove(value);
             return;
         }
     }
