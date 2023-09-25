@@ -13,6 +13,8 @@
 //  CRC32  => not use
 //  CRC32C => use include nmmintrin.h (or immintrin.h, etc... )
 //            if not, use CRC32 process
+//
+//  include check: #ifdef _INCLUDED_NMM
 
 namespace sbl {
 
