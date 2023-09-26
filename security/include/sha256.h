@@ -1,9 +1,20 @@
 #ifndef SBL_SHA256_HEADER__
 #define SBL_SHA256_HEADER__
 
+/*
+    has C language compatible procedures
+    - SHA256_Hasing
+    - SHA256_Encrypt
+    must call free() when release
+*/
+
+#ifdef __cplusplus
+
+// clang-format off
 #include "string"
 #include "../../common/include/common.h"
 #include "../../common/include/block.h"
+// clang-format on
 
 namespace sbl {
 
@@ -66,4 +77,22 @@ EXPORT char* SHA256_Encrypt(IN const void* message, IN int msgSize, IN const voi
                             IN int stretching);
 
 } // namespace sbl
+
+#else
+// clang-format off
+#ifndef IN
+#    define IN
+#endif
+#ifndef OUT
+#    define OUT
+#endif
+#ifndef OPT
+#    define OPT
+#endif
+
+char* SHA256_Hasing(IN const void* message, IN int size);
+char* SHA256_Encrypt(IN const void* message, IN int msgSize, IN const void* salt, IN int saltSize, IN int stretching);
+#endif
+// clang-format on
+
 #endif

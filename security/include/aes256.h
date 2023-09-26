@@ -1,9 +1,20 @@
 #ifndef SBL_AES256_HEADER__
 #define SBL_AES256_HEADER__
 
+/*
+    has C language compatible procedures
+    - AES256_Encrypt
+    - AES256_Decrypt
+    must call free() when release
+*/
+
+#ifdef __cplusplus
+
+// clang-format off
 #include "string"
 #include "../../common/include/common.h"
 #include "../../common/include/block.h"
+// clang-format on
 
 namespace sbl {
 
@@ -55,4 +66,22 @@ EXPORT char* AES256_Encrypt(IN const void* data, IN int size, IN const char* key
 EXPORT char* AES256_Decrypt(IN const void* data, IN int size, IN const char* key, OUT OPT int* padding);
 
 } // namespace sbl
+
+#else
+// clang-format off
+#ifndef IN
+#    define IN
+#endif
+#ifndef OUT
+#    define OUT
+#endif
+#ifndef OPT
+#    define OPT
+#endif
+
+char* AES256_Encrypt(IN const void* data, IN int size, IN const char* key);
+char* AES256_Decrypt(IN const void* data, IN int size, IN const char* key, OUT OPT int* padding);
+#endif
+// clang-format on
+
 #endif
