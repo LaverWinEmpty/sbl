@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_CONSTANTS_HEADER__
-#define __SEMIBASE_CONSTANTS_HEADER__
+#ifndef SBL_CONSTANTS_HEADER__
+#define SBL_CONSTANTS_HEADER__
 
 #include "defs.h"
 #include "types.h"

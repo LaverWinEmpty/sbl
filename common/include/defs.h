@@ -1,11 +1,10 @@
-#ifndef __SEMIBASE_MACROS_HEADER__
-#define __SEMIBASE_MACROS_HEADER__
+#ifndef SBL_MACROS_HEADER__
+#define SBL_MACROS_HEADER__
 
 /*
     2023.09.24
     Write: Windows OS / ANSI (CP-949)
 */
-
 
 // Check OS
 #if _WIN32 || _WIN64
@@ -49,10 +48,8 @@
 
 // MSVC / Clang
 // property, __VA_ARGS__: get / put
-#if _WIN32 || _WIN64
-#    ifndef prop
-#        define prop(...) __declspec(property(__VA_ARGS__))
-#    endif
+#ifndef prop
+#    define prop(...) __declspec(property(__VA_ARGS__))
 #endif
 
 #ifndef IN
@@ -197,14 +194,14 @@
     do {                                                                                                               \
         __int64 loop_count_in_fast_loop_macro = (static_cast<__int64>(loop) + 7) >> 3;                                 \
         if(loop > 0) switch(loop & 0b111) {                                                                            \
-                case 0: do { procedure                                                                                 \
-                        case 7: procedure                                                                              \
-                        case 6: procedure                                                                              \
-                        case 5: procedure                                                                              \
-                        case 4: procedure                                                                              \
-                        case 3: procedure                                                                              \
-                        case 2: procedure                                                                              \
-                        case 1: procedure                                                                              \
+                case 0: do { procedure;                                                                                \
+                        case 7: procedure;                                                                             \
+                        case 6: procedure;                                                                             \
+                        case 5: procedure;                                                                             \
+                        case 4: procedure;                                                                             \
+                        case 3: procedure;                                                                             \
+                        case 2: procedure;                                                                             \
+                        case 1: procedure;                                                                             \
                     } while(--loop_count_in_fast_loop_macro > 0);                                                      \
             }                                                                                                          \
     } while(false)
@@ -215,14 +212,14 @@
         init;                                                                                                          \
         __int64 loop_count_in_fast_loop_macro = (static_cast<__int64>(loop) + 7) >> 3;                                 \
         if(loop > 0) switch(loop & 0b111) {                                                                            \
-                case 0: do { procedure                                                                                 \
-                        case 7: procedure                                                                              \
-                        case 6: procedure                                                                              \
-                        case 5: procedure                                                                              \
-                        case 4: procedure                                                                              \
-                        case 3: procedure                                                                              \
-                        case 2: procedure                                                                              \
-                        case 1: procedure                                                                              \
+                case 0: do { procedure;                                                                                \
+                        case 7: procedure;                                                                             \
+                        case 6: procedure;                                                                             \
+                        case 5: procedure;                                                                             \
+                        case 4: procedure;                                                                             \
+                        case 3: procedure;                                                                             \
+                        case 2: procedure;                                                                             \
+                        case 1: procedure;                                                                             \
                     } while(--loop_count_in_fast_loop_macro > 0);                                                      \
             }                                                                                                          \
     } while(false)

@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_COMMON_HEADER__
-#define __SEMIBASE_COMMON_HEADER__
+#ifndef SBL_COMMON_HEADER__
+#define SBL_COMMON_HEADER__
 
 #include "defs.h"
 #include "types.h"
@@ -10,7 +10,7 @@ namespace sbl {
 
 template<typename T, typename U> struct Pair
 {
-    T key = T();
+    T key   = T();
     U value = U();
 
     Pair operator=(IN const U& param) { return value = param, *this; }

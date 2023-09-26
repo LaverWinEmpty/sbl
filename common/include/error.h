@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_ERROR_HEADER__
-#define __SEMIBASE_ERROR_HEADER__
+#ifndef SBL_ERROR_HEADER__
+#define SBL_ERROR_HEADER__
 
 #include "symbols.h"
 

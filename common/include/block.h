@@ -1,5 +1,5 @@
-#ifndef __SEMIBASE_BLOCK_STRUCTURE_HEADER__
-#define __SEMIBASE_BLOCK_STRUCTURE_HEADER__
+#ifndef SBL_BLOCK_STRUCTURE_HEADER__
+#define SBL_BLOCK_STRUCTURE_HEADER__
 
 #include "types.h"
 #include "error.h"
@@ -47,7 +47,7 @@
         {                                                                                                              \
             data[index] = static_cast<T>(arg);                                                                         \
             if(index >= TO_BYTE(bit)) {                                                                                \
-                throw ErrorBuilder::OutOfRange();                                                                     \
+                throw ErrorBuilder::OutOfRange();                                                                      \
             }                                                                                                          \
             Ctor(index + 1, args...);                                                                                  \
         }                                                                                                              \
@@ -60,9 +60,9 @@
 
 namespace sbl {
 
-    DECLARE_BLOCK(128);
-    DECLARE_BLOCK(256);
-    DECLARE_BLOCK(512);
+DECLARE_BLOCK(128);
+DECLARE_BLOCK(256);
+DECLARE_BLOCK(512);
 
 } // namespace sbl
 #undef DECLARE_BLOCK
