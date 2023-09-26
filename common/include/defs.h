@@ -85,7 +85,7 @@
 #endif
 
 #ifndef PI
-#    define PI 3.14159265358979f // double
+#    define PI 3.14159265358979 // double
 #endif
 
 // To string
