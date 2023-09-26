@@ -5,7 +5,7 @@
     has C language compatible procedures
     - AES256_Encrypt
     - AES256_Decrypt
-    must call free() when release
+    must call free() before the scope ends.
 */
 
 #ifdef __cplusplus
@@ -78,10 +78,10 @@ EXPORT char* AES256_Decrypt(IN const void* data, IN int size, IN const char* key
 #ifndef OPT
 #    define OPT
 #endif
+// clang-format on
 
 char* AES256_Encrypt(IN const void* data, IN int size, IN const char* key);
 char* AES256_Decrypt(IN const void* data, IN int size, IN const char* key, OUT OPT int* padding);
 #endif
-// clang-format on
 
 #endif

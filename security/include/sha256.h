@@ -5,7 +5,7 @@
     has C language compatible procedures
     - SHA256_Hasing
     - SHA256_Encrypt
-    must call free() when release
+    must call free() before the scope ends.
 */
 
 #ifdef __cplusplus
@@ -89,10 +89,10 @@ EXPORT char* SHA256_Encrypt(IN const void* message, IN int msgSize, IN const voi
 #ifndef OPT
 #    define OPT
 #endif
+// clang-format on
 
 char* SHA256_Hasing(IN const void* message, IN int size);
 char* SHA256_Encrypt(IN const void* message, IN int msgSize, IN const void* salt, IN int saltSize, IN int stretching);
 #endif
-// clang-format on
 
 #endif
