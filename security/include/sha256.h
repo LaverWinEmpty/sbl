@@ -1,5 +1,5 @@
-#ifndef SEMIBASE_SHA256_HEADER__
-#define SEMIBASE_SHA256_HEADER__
+#ifndef SBL_SHA256_HEADER__
+#define SBL_SHA256_HEADER__
 
 #include "string"
 #include "../../common/include/common.h"
