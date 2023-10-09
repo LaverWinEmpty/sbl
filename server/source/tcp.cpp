@@ -3,7 +3,29 @@
 namespace sbl {
 namespace iocp {
 
-// Failed: return INVALID_SOCKET
+// throw
+// runtime_error: socket()
+SocketTCP* SocketTCP::CreateClient(const char* ip, u_short port)
+{
+    return new SocketTCP(ip, port);
+}
+
+SocketTCP::SocketTCP() {}
+
+SocketTCP::SocketTCP(const char* ip, u_short port)
+{
+    handle = socket(AF_INET, SOCK_STREAM, 0);
+    if(handle == INVALID_SOCKET) {
+        throw std::runtime_error(win::ErrorFormatter::Formatting(GetLastError()));
+    }
+
+    SOCKADDR_IN socketInfo;
+    info.sin_family      = AF_INET;
+    info.sin_addr.s_addr = inet_addr(ip);
+    info.sin_port        = htons(port);
+}
+
+// failed: return INVALID_SOCKET
 SOCKET SocketTCP::Accept(OUT OPT SOCKADDR_IN* info)
 {
     int         addrLen = TO_INT(sizeof(SOCKADDR_IN));
@@ -17,7 +39,7 @@ SOCKET SocketTCP::Accept(OUT OPT SOCKADDR_IN* info)
     return sock;
 }
 
-// Succeed: return 0
+// succeed: return 0
 DWORD SocketTCP::Connect()
 {
     if(SOCKET_ERROR == connect(handle, (SOCKADDR*)&info, sizeof(info))) {
@@ -26,7 +48,7 @@ DWORD SocketTCP::Connect()
     return 0;
 }
 
-// Succeed: return 0
+// succeed: return 0
 DWORD SocketTCP::Bind()
 {
     if(SOCKET_ERROR == bind(handle, (SOCKADDR*)&info, sizeof(info))) {
@@ -35,7 +57,7 @@ DWORD SocketTCP::Bind()
     return 0;
 }
 
-// Succeed: return 0
+// succeed: return 0
 DWORD SocketTCP::Listen()
 {
     if(SOCKET_ERROR == listen(handle, SOMAXCONN)) {
@@ -44,7 +66,7 @@ DWORD SocketTCP::Listen()
     return 0;
 }
 
-DWORD SocketTCP::TransmitSync(IN Byte* buffer, IN SzInt size, IN Protocol protocol)
+DWORD SocketTCP::TransmitSync(IN Byte* buffer, IN ssize_t size, IN Protocol protocol)
 {
     // Send Size: include => (data, sequentil, protocol) size
     PayloadSize total = size + EPacketSize::INFO;

@@ -21,14 +21,14 @@ namespace sbl {
 class CRC32
 {
 private:
-    static const UInt32 POLY;
+    static const uint32_t POLY;
 
 private:
-    static UInt32 Process(IN UByte* ptr, IN SzInt size, IN UInt32 init, IN UInt32 poly);
+    static uint32_t Process(IN UByte* ptr, IN ssize_t size, IN uint32_t init, IN uint32_t poly);
 
 public:
-    static UInt32 Hasing(IN Ptr ptr, IN SzInt size);
-    static UInt32 Castagnoli(IN Ptr ptr, IN SzInt size);
+    static uint32_t Hasing(IN Ptr ptr, IN ssize_t size);
+    static uint32_t Castagnoli(IN Ptr ptr, IN ssize_t size);
 };
 
 } // namespace sbl

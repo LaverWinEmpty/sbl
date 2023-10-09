@@ -73,7 +73,7 @@ template<typename T> T& List<T>::operator[](IN int index)
 template<typename T> template<typename U> T* List<T>::Find(IN const U& data, IN List::FnCompare<U> proc)
 {
     Node<T>* curr = head;
-    for(SzInt i = 0; i < size; ++i) {
+    for(ssize_t i = 0; i < size; ++i) {
         if(proc(curr->data, data) == true) {
             return &curr->data;
         }
@@ -83,9 +83,9 @@ template<typename T> template<typename U> T* List<T>::Find(IN const U& data, IN 
 }
 
 // -1: Not exist
-template<typename T> template<typename U> SzInt List<T>::GetIndex(IN const U& data, IN List::FnCompare<U> proc)
+template<typename T> template<typename U> ssize_t List<T>::GetIndex(IN const U& data, IN List::FnCompare<U> proc)
 {
-    for(SzInt i = 0; i < size; ++i) {
+    for(ssize_t i = 0; i < size; ++i) {
         if(proc(this[i], data)) {
             return i;
         }
@@ -174,12 +174,12 @@ template<typename T> void List<T>::ReleaseNode(IN Node<T>* deleteNode, IN int in
     }
 }
 
-template<typename T> SzInt List<T>::Size() const
+template<typename T> ssize_t List<T>::Size() const
 {
     return size;
 }
 
-template<typename T> SzInt List<T>::LastIndex() const
+template<typename T> ssize_t List<T>::LastIndex() const
 {
     return size - 1;
 }

@@ -250,14 +250,14 @@ Matrix44 Matrix44::Transpose()
     return temp;
 }
 
-Matrix44 Matrix44::Inverse() // Throw MsgErr
-
+// throw
+// runtime_error
+Matrix44 Matrix44::Inverse()
 {
     float det = Determinant();
     if(FLOAT_EQUAL(det, 0)) {
-        throw ErrorBuilder::InvalidValue();
+        throw std::runtime_error("DETERMINANT ZERO");
     }
-
     float detInv = 1 / det;
 
     Matrix44 temp;

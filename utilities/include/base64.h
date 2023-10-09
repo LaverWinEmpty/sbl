@@ -11,8 +11,8 @@ class Base64
     DECLARE_LIMIT_LIFECYCLE(Base64);
 
 private:
-    static const AChar* TABLE;
-    static int          ToIndex(IN AChar ascii);
+    static const char* TABLE;
+    static int         ToIndex(IN char ascii);
 
 public:
     static std::string Encoding(IN const std::string& str);

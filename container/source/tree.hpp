@@ -99,18 +99,18 @@ template<typename T> int ColorNode<T>::GetLevel()
 template<typename T> void Tree<T>::RotateLeft(IN ColorNode<T>* param)
 {
     //  P         // Parent
-    //   ¢Ù
+    //   ï¿½ï¿½
     //      C     // Current (param)
-    //   ¢×   ¢Ù
+    //   ï¿½ï¿½   ï¿½ï¿½
     //  L       R // Left and Right
 
     ColorNode<T>* r = param->Right;
 
     //  P
-    //   ¢Ù
+    //   ï¿½ï¿½
     //      C
-    //   ¢×   ¢Ù
-    //  L       RL ¡ç R ¡æ RR // Right's Left and Right's Right
+    //   ï¿½ï¿½   ï¿½ï¿½
+    //  L       RL ï¿½ï¿½ R ï¿½ï¿½ RR // Right's Left and Right's Right
 
     param->Right = r->Left;
     if(r->Left->IsNil() == false) {
@@ -118,9 +118,9 @@ template<typename T> void Tree<T>::RotateLeft(IN ColorNode<T>* param)
     }
 
     //     P
-    //   ¢× ¢Ù
+    //   ï¿½ï¿½ ï¿½ï¿½
     //  C     R // To Sibling (or root)
-    //  ¡é¢Ù ¢×
+    //  ï¿½ï¿½ï¿½ ï¿½ï¿½
     //  L  RL
 
     r->Parent = param->Parent;
@@ -135,11 +135,11 @@ template<typename T> void Tree<T>::RotateLeft(IN ColorNode<T>* param)
     }
 
     //  P
-    //   ¢Ù
+    //   ï¿½ï¿½
     //      R
-    //   ¢×   ¢Ù
+    //   ï¿½ï¿½   ï¿½ï¿½
     //  C       RR
-    //  ¡é¢Ù
+    //  ï¿½ï¿½ï¿½
     //  L  RL
 
     r->Left       = param;
@@ -179,7 +179,7 @@ template<typename T> void Tree<T>::Transplant(IN ColorNode<T>* param, IN ColorNo
     // O: Old => remove
 
     // R    R
-    // ¦¢ => ¦¢
+    // ï¿½ï¿½ => ï¿½ï¿½
     // O    P
 
     if(old->IsRoot() == true) {

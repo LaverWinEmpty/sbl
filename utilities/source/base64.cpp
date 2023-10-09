@@ -2,10 +2,10 @@
 
 namespace sbl {
 
-const AChar* Base64::TABLE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+const char* Base64::TABLE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 // Throw ErrMsg
-int Base64::ToIndex(IN AChar ascii)
+int Base64::ToIndex(IN char ascii)
 {
     if(ascii < '/') {
         if(ascii == '+') {
@@ -48,7 +48,7 @@ std::string Base64::Encoding(IN const std::string& str)
     UByte       current, remind; // For shift
     int         prev;            // Previous cursor position
 
-    Int64 size = str.size();
+    int64_t size = str.size();
     while(++cursor < size) {
         switch(cursor % 3) {
 

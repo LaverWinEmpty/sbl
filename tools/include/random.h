@@ -10,11 +10,11 @@ class RandomGenerator
 {
 public:
     RandomGenerator();
-    RandomGenerator(IN UInt64 seed);
+    RandomGenerator(IN uint64_t seed);
     RandomGenerator(IN Block256 seed);
 
 public:
-    void Initialize(IN UInt64 seed);
+    void Initialize(IN uint64_t seed);
     void Initialize(IN Block256 seed);
 
 public:
@@ -32,14 +32,14 @@ public:
     //   But may vary depending on the environment.
     //
     // Recommend: use for seed
-    static WordPtr PerfectRandom();
+    static ssize_t PerfectRandom();
 
 private:
     Xoshiro256 rand;
 
 private:
     static void    Run(IN void* nCount);
-    static WordPtr nonCriticalSection;
+    static ssize_t nonCriticalSection;
 };
 
 } // namespace sbl

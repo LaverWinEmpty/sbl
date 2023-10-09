@@ -3,12 +3,12 @@
 namespace sbl {
 
 #ifdef BIG_ENDIAN
-const UInt32 CRC32::POLY = 0x04C11DB7;
+const uint32_t CRC32::POLY = 0x04C11DB7;
 #else
-const UInt32 CRC32::POLY = 0xEDB88320;
+const uint32_t CRC32::POLY = 0xEDB88320;
 #endif
 
-UInt32 CRC32::Process(IN UByte* ptr, IN SzInt size, IN UInt32 init, IN UInt32 poly)
+uint32_t CRC32::Process(IN UByte* ptr, IN ssize_t size, IN uint32_t init, IN uint32_t poly)
 {
     while(size-- > 0) {
         init ^= *ptr++;
@@ -19,22 +19,22 @@ UInt32 CRC32::Process(IN UByte* ptr, IN SzInt size, IN UInt32 init, IN UInt32 po
     return ~init;
 }
 
-UInt32 CRC32::Hasing(IN Ptr ptr, IN SzInt size)
+uint32_t CRC32::Hasing(IN Ptr ptr, IN ssize_t size)
 {
     return Process(ptr, size, -1, POLY);
 }
 
 // High-speed processing functions (when SSE 4.2 is available)
-UInt32 CRC32::Castagnoli(const Ptr ptr, SzInt size)
+uint32_t CRC32::Castagnoli(const Ptr ptr, ssize_t size)
 {
     unsigned char* data = ptr;
     unsigned int   crc  = -1;
 
 #ifndef _INCLUDED_NMM
 #    ifdef BIG_ENDIAN
-    readonly UInt32 POLY = 0x1EDC6F41;
+    readonly uint32_t POLY = 0x1EDC6F41;
 #    else
-    readonly UInt32 POLY = 0x82F63B78;
+    readonly uint32_t POLY = 0x82F63B78;
 #    endif
     return Process(data, size, crc, POLY);
 #else

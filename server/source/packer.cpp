@@ -90,31 +90,31 @@ bool Packer::Read(OUT Ptr buffer, IN DataSize size)
     return true;
 }
 
-bool Packer::PackingInt16(IN Int16 param)
+bool Packer::PackingInt16(IN int16_t param)
 {
     if(CHECK_BIG_ENDIAN()) {
         param = ntohs(param);
     }
-    return Packing(&param, sizeof(Int16));
+    return Packing(&param, sizeof(int16_t));
 }
 
-bool Packer::PackingInt32(IN Int32 param)
+bool Packer::PackingInt32(IN int32_t param)
 {
     if(CHECK_BIG_ENDIAN()) {
         param = ntohl(param);
     }
-    return Packing(&param, sizeof(Int32));
+    return Packing(&param, sizeof(int32_t));
 }
 
-bool Packer::PackingInt64(IN Int64 param)
+bool Packer::PackingInt64(IN int64_t param)
 {
     if(CHECK_BIG_ENDIAN()) {
         param = ntohll(param);
     }
-    return Packing(&param, sizeof(Int64));
+    return Packing(&param, sizeof(int64_t));
 }
 
-bool Packer::UnpackingInt16(OUT Int16* param)
+bool Packer::UnpackingInt16(OUT int16_t* param)
 {
     if(Unpacking(param)) {
         return false;
@@ -125,7 +125,7 @@ bool Packer::UnpackingInt16(OUT Int16* param)
     return true;
 }
 
-bool Packer::UnpackingInt32(OUT Int32* param)
+bool Packer::UnpackingInt32(OUT int32_t* param)
 {
     if(false == Unpacking(param)) {
         return false;
@@ -136,7 +136,7 @@ bool Packer::UnpackingInt32(OUT Int32* param)
     return true;
 }
 
-bool Packer::UnpackingInt64(OUT Int64* param)
+bool Packer::UnpackingInt64(OUT int64_t* param)
 {
     if(false == Unpacking(param)) {
         return false;
@@ -148,7 +148,7 @@ bool Packer::UnpackingInt64(OUT Int64* param)
     return true;
 }
 
-SzInt Packer::GetMoved()
+ssize_t Packer::GetMoved()
 {
     return moved;
 }

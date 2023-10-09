@@ -36,13 +36,13 @@ public:
     T& operator[](IN int index); // Find By Index
 
 public:
-    template<typename U> T*    Find(IN const U& data, IN FnCompare<U> proc = CompareEqual);
-    template<typename U> SzInt GetIndex(IN const U& data, IN FnCompare<U> proc = CompareEqual);
+    template<typename U> T*      Find(IN const U& data, IN FnCompare<U> proc = CompareEqual);
+    template<typename U> ssize_t GetIndex(IN const U& data, IN FnCompare<U> proc = CompareEqual);
 
 public:
-    SzInt Size() const;
-    SzInt LastIndex() const;
-    bool  IsEmpty() const;
+    ssize_t Size() const;
+    ssize_t LastIndex() const;
+    bool    IsEmpty() const;
 
 public:
     void Push(IN T data); // To first
@@ -88,9 +88,9 @@ private:
 private:
     Node<T>* head;
     Node<T>* tail;
-    SzInt    size;
+    ssize_t  size;
     Node<T>* cache;  // Last accessed node pointer
-    SzInt    recent; // Last accessed node index
+    ssize_t  recent; // Last accessed node index
 };
 
 } // namespace sbl

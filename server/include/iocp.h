@@ -37,7 +37,7 @@ struct IOContext
     Byte*  buffer;
 
     IOContext(): cursor{ 0 }, current(0), target(0), buffer(nullptr) {}
-    IOContext(SzInt size): cursor{ 0 }, current(0), target(0), buffer(nullptr) { buffer = new Byte[size]{ 0 }; }
+    IOContext(ssize_t size): cursor{ 0 }, current(0), target(0), buffer(nullptr) { buffer = new Byte[size]{ 0 }; }
     ~IOContext() { SAFE_DESTRUCTS(buffer); }
 };
 
@@ -52,7 +52,7 @@ public:
     ~SocketIOCP() {}
 
 public:
-    static SocketTCP*  CreateClient(IN const AChar* ip, IN u_short port) = delete;
+    static SocketTCP*  CreateClient(IN const char* ip, IN u_short port) = delete;
     static SocketIOCP* CreateServer(IN u_short port);
     static SocketIOCP* CreateSession(IN SOCKET hSocket, IN const SOCKADDR_IN& sockAddr);
 
@@ -62,7 +62,7 @@ public:
     ESocketResult CheckTransmit(IN int completeByte);
     ESocketResult CheckReceive(IN int completeByte);
     void          Packing(IN const Ptr payload, IN DataSize size, IN Protocol protocol);
-    bool          Unpacking(OUT OPT Ptr buffer, OUT OPT Protocol* protocol, IN SzInt bufferSize = EPacketSize::PACKET);
+    bool Unpacking(OUT OPT Ptr buffer, OUT OPT Protocol* protocol, IN ssize_t bufferSize = EPacketSize::PACKET);
 
 public:
     SocketController* GetController() { return ctrl; }

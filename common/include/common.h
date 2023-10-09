@@ -1,10 +1,10 @@
 #ifndef SBL_COMMON_HEADER__
 #define SBL_COMMON_HEADER__
 
-#include "defs.h"
-#include "types.h"
-#include "symbols.h"
-#include "error.h"
+#include "../public/headers.h"
+#include "../public/defs.h"
+#include "../public/types.h"
+#include "../public/symbols.h"
 
 namespace sbl {
 

@@ -20,7 +20,7 @@ class Serializer
 private:
     static std::string ToBinary(IN Byte byte);
     static std::string ToBinary(IN const Ptr ptr, IN size_t size);
-    static Int8        FromBinary(IN const std::string& str);
+    static Byte        FromBinary(IN const std::string& str);
     static void        FromBinary(IN const std::string& str, OUT Ptr ptr);
 
 private:

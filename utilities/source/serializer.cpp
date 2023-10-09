@@ -20,7 +20,7 @@ void Serializer::Deserialization(IN const std::string& str, IN size_t size, OUT 
 
     Byte* cursor = ptr;
 
-    Int64 index = 0;
+    int64_t index = 0;
     FAST_LOOP(size, cursor[index] = str[index]; ++index);
 }
 
@@ -29,7 +29,7 @@ std::string Serializer::ToBinary(IN Byte byte)
 {
     std::string result;
 
-    UInt8 bit = 0b10000000;
+    Byte bit = 0b10000000;
     FAST_LOOP(8, result.push_back('0' + !!(byte & bit)); bit >>= 1);
 
     return result;
@@ -47,7 +47,7 @@ std::string Serializer::ToBinary(IN const Ptr ptr, IN size_t size)
 
 // 1Byte
 // Throw ErrMsg
-Int8 Serializer::FromBinary(IN const std::string& str)
+Byte Serializer::FromBinary(IN const std::string& str)
 {
     if(str.size() % 8) {
         throw ErrorBuilder::FormatError();
@@ -69,8 +69,8 @@ void Serializer::FromBinary(IN const std::string& str, OUT Ptr ptr)
 
     Byte* cursor = ptr;
 
-    Int64 loop  = str.size();
-    Int64 index = 0;
+    int64_t loop  = str.size();
+    int64_t index = 0;
     FAST_LOOP(loop >> 3, cursor[index] = FromBinary(str.substr(index << 3, 8)); ++index);
 }
 

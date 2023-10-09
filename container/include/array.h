@@ -19,19 +19,19 @@ namespace sbl {
 template<typename T, UWord sizeUnit = 10> class Array
 {
 private:
-    void Reallocation(IN SzInt dataSize);
-    void IncreaseMemory(IN SzInt incMem = sizeUnit);
-    void DecreaseMemory(IN SzInt decMem = sizeUnit);
+    void Reallocation(IN ssize_t dataSize);
+    void IncreaseMemory(IN ssize_t incMem = sizeUnit);
+    void DecreaseMemory(IN ssize_t decMem = sizeUnit);
 
 public:
     Array();
     ~Array();
-    T& operator[](SzInt index);
+    T& operator[](ssize_t index);
 
 public:
-    SzInt GetSize();
-    SzInt GetCapacity();
-    bool  IsEmpty();
+    ssize_t GetSize();
+    ssize_t GetCapacity();
+    bool    IsEmpty();
 
 private:
     bool IsFull();
@@ -40,16 +40,16 @@ private:
 public:
     void Push(IN const T& ref);
     bool Pop();
-    bool Remove(IN SzInt index);
+    bool Remove(IN ssize_t index);
 
 public:
-    prop(get = GetSize) SzInt Size;
-    prop(get = GetCapacity) SzInt Capacity;
+    prop(get = GetSize) ssize_t Size;
+    prop(get = GetCapacity) ssize_t Capacity;
 
 private:
-    SzInt size     = 0;
-    SzInt capacity = 0;
-    T*    mem      = nullptr;
+    ssize_t size     = 0;
+    ssize_t capacity = 0;
+    T*      mem      = nullptr;
 };
 
 template<typename T, UWord sizeUnit = 10> class Queue

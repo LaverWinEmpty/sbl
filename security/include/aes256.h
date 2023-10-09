@@ -13,7 +13,6 @@
 // clang-format off
 #include "string"
 #include "../../common/include/common.h"
-#include "../../common/include/block.h"
 // clang-format on
 
 namespace sbl {
@@ -21,12 +20,12 @@ namespace sbl {
 class AES256
 {
 public:
-    readonly Int64 BLOCK_SIZE    = 16;                                    // AES
-    readonly Int64 KEY_SIZE_BYTE = 32;                                    // AES-256
-    readonly Int64 ROUND_COUNT   = 14;                                    // AES-256
-    readonly Int64 EXPANDED_SIZE = BLOCK_SIZE * ROUND_COUNT + BLOCK_SIZE; // 240 Byte
-    readonly Int64 ROW           = 4;                                     // Matrix row
-    readonly Int64 COL           = 4;                                     // Matrix column
+    readonly int64_t BLOCK_SIZE    = 16;                                    // AES
+    readonly int64_t KEY_SIZE_BYTE = 32;                                    // AES-256
+    readonly int64_t ROUND_COUNT   = 14;                                    // AES-256
+    readonly int64_t EXPANDED_SIZE = BLOCK_SIZE * ROUND_COUNT + BLOCK_SIZE; // 240 Byte
+    readonly int64_t ROW           = 4;                                     // Matrix row
+    readonly int64_t COL           = 4;                                     // Matrix column
 
 public:
     static std::string Encrypt(IN const std::string& data, IN const std::string& key);

@@ -20,23 +20,23 @@ public:
     bool Read(OUT Ptr buffer, IN DataSize size);
 
 public:
-    bool PackingInt16(IN Int16 param);
-    bool PackingInt32(IN Int32 param);
-    bool PackingInt64(IN Int64 param);
+    bool PackingInt16(IN int16_t param);
+    bool PackingInt32(IN int32_t param);
+    bool PackingInt64(IN int64_t param);
 
 public:
-    bool UnpackingInt16(OUT Int16* param);
-    bool UnpackingInt32(OUT Int32* param);
-    bool UnpackingInt64(OUT Int64* param);
+    bool UnpackingInt16(OUT int16_t* param);
+    bool UnpackingInt32(OUT int32_t* param);
+    bool UnpackingInt64(OUT int64_t* param);
 
 public:
-    SzInt GetMoved();
-    prop(get = GetMoved) SzInt Moved;
+    ssize_t GetMoved();
+    prop(get = GetMoved) ssize_t Moved;
 
 private:
-    Byte* cursor;
-    SzInt moved;
-    SzInt limit;
+    Byte*   cursor;
+    ssize_t moved;
+    ssize_t limit;
 };
 
 } // namespace iocp

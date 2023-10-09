@@ -184,7 +184,7 @@ Matrix33 Matrix33::Inverse()
 {
     float det = Determinant();
     if(FLOAT_EQUAL(det, 0)) {
-        throw ErrorBuilder::InvalidValue();
+        throw std::runtime_error("DETERMINANT ZERO");
     }
 
     float detInv = 1 / det;

@@ -111,8 +111,8 @@ std::string TimeStamper::SecToStamp(IN double time)
         time *= -1;
     }
 
-    UInt64   nTime = static_cast<UInt64>(time);
-    UInt64   hour  = static_cast<int>(nTime / 3600);
+    uint64_t nTime = static_cast<uint64_t>(time);
+    uint64_t hour  = static_cast<int>(nTime / 3600);
     unsigned min   = (nTime / 60) % 60;
     unsigned sec   = nTime % 60;
     unsigned ms    = FractionalToMS(time);
@@ -196,12 +196,12 @@ std::string TimeStamper::CreateTime()
 std::string TimeStamper::ToStringDate(IN tm* param, IN EOrder order, IN bool isMonthAsString, IN bool isLeaveGap)
 {
     // "1900_MAY_00" <= 12
-    AChar buffer[12] = { 0 };
+    char buffer[12] = { 0 };
 
-    int   year   = param->tm_year + 1900;
-    AChar day[4] = { 0 };
-    AChar mon[4] = { 0 };
-    AChar delimiter;
+    int  year   = param->tm_year + 1900;
+    char day[4] = { 0 };
+    char mon[4] = { 0 };
+    char delimiter;
 
     if(isMonthAsString) {
         sprintf_s(mon, "%s", MONS[param->tm_mon]);
@@ -238,10 +238,10 @@ std::string TimeStamper::ToStringDate(IN tm* param, IN EOrder order, IN bool isM
 std::string TimeStamper::ToStringTime(IN tm* param, IN bool isDivideByNoon, IN bool isLeaveGap)
 {
     // "00:00:00 AM" <= 12
-    AChar buffer[12] = { 0 };
+    char buffer[12] = { 0 };
 
-    int          hour = param->tm_hour;
-    const AChar* noon = "AM";
+    int         hour = param->tm_hour;
+    const char* noon = "AM";
 
     if(isDivideByNoon) {
         // Check AM / PM

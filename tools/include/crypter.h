@@ -18,7 +18,7 @@ class Crypter
     DECLARE_LIMIT_LIFECYCLE(Crypter);
 
 public:
-    static std::string Encoding(IN const Ptr ptr, IN SzInt size, IN const std::string& key);
+    static std::string Encoding(IN const Ptr ptr, IN ssize_t size, IN const std::string& key);
     static std::string Encoding(IN const std::string& data, IN const std::string& key);
 
 public:
@@ -30,7 +30,7 @@ public:
     static std::string Decoding(IN const std::string& data, IN const std::string& key, OUT OPT int* padding = nullptr);
 
 public:
-    static std::string Hashing(IN const std::string& data, IN const std::string& salt, IN SzInt stretching);
+    static std::string Hashing(IN const std::string& data, IN const std::string& salt, IN ssize_t stretching);
 };
 
 } // namespace sbl

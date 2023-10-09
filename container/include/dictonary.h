@@ -5,7 +5,7 @@
 
 namespace sbl {
 
-template<typename Key, typename Value, const SzInt BUCKET_AMOUNT = 31> class Dictionary
+template<typename Key, typename Value, const ssize_t BUCKET_AMOUNT = 31> class Dictionary
 {
     DECLARE_NO_COPY(Dictionary);
 
@@ -17,7 +17,7 @@ public:
     Array<Value>& operator[](IN const Key& key); // Get bucket
 
 private:
-    SzInt GetKey(IN const Key& key);
+    ssize_t GetKey(IN const Key& key);
 
 public:
     void   Insert(IN const Key& key, IN Value data);

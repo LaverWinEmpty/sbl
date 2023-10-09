@@ -6,30 +6,30 @@
 
 namespace sbl {
 
-template<typename K, typename V, SzInt n> Dictionary<K, V, n>::Dictionary() {}
+template<typename K, typename V, ssize_t n> Dictionary<K, V, n>::Dictionary() {}
 
-template<typename K, typename V, SzInt n> Dictionary<K, V, n>::~Dictionary() {}
+template<typename K, typename V, ssize_t n> Dictionary<K, V, n>::~Dictionary() {}
 
-template<typename K, typename V, SzInt n> SzInt Dictionary<K, V, n>::GetKey(IN const K& key)
+template<typename K, typename V, ssize_t n> ssize_t Dictionary<K, V, n>::GetKey(IN const K& key)
 {
     return CRC32::Castagnoli(&key, sizeof(K)) % n;
 }
 
-template<typename K, typename V, SzInt n> Array<V>& Dictionary<K, V, n>::operator[](IN const K& key)
+template<typename K, typename V, ssize_t n> Array<V>& Dictionary<K, V, n>::operator[](IN const K& key)
 {
     return buckets[GetKey(key)];
 }
 
-template<typename K, typename V, SzInt n> void Dictionary<K, V, n>::Insert(IN const K& key, IN V value)
+template<typename K, typename V, ssize_t n> void Dictionary<K, V, n>::Insert(IN const K& key, IN V value)
 {
     buckets[GetKey(key)].Push(value);
 }
 
-template<typename K, typename V, SzInt n> V& Dictionary<K, V, n>::Find(IN const K& key)
+template<typename K, typename V, ssize_t n> V& Dictionary<K, V, n>::Find(IN const K& key)
 {
     Array<V>& arr = buckets[GetKey(key)];
 
-    SzInt index = arr.Size - 1;
+    ssize_t index = arr.Size - 1;
     if(index < 0) {
         throw ErrorBuilder::OutOfRange();
     }
@@ -37,9 +37,9 @@ template<typename K, typename V, SzInt n> V& Dictionary<K, V, n>::Find(IN const 
     return arr[index];
 }
 
-template<typename K, typename V, SzInt n> void Dictionary<K, V, n>::Remove(IN const K& key, IN const V& value)
+template<typename K, typename V, ssize_t n> void Dictionary<K, V, n>::Remove(IN const K& key, IN const V& value)
 {
-    SzInt bucket = CRC32::Castagnoli(&key, sizeof(K));
+    ssize_t bucket = CRC32::Castagnoli(&key, sizeof(K));
 
     Array<V>& arr = buckets[bucket];
     for(int i = 0; i < arr->Size(); ++i) {

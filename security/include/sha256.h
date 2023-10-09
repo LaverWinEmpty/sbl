@@ -21,8 +21,8 @@ namespace sbl {
 class SHA256
 {
 private:
-    readonly SzInt DIGEST_BLOCK_LEN = 64;
-    readonly SzInt DIGEST_VALUE_LEN = 32;
+    readonly ssize_t DIGEST_BLOCK_LEN = 64;
+    readonly ssize_t DIGEST_VALUE_LEN = 32;
 
 private:
     static const UWord CONSTANTS[64];
@@ -42,28 +42,28 @@ public:
 
 private:
     void     Initialize();
-    void     Compress(IN Ptr message, IN UInt32 size);
+    void     Compress(IN Ptr message, IN uint32_t size);
     Block256 Final(IN Ptr message);
 
 public:
-    static std::string Hashing(IN const Ptr message, IN SzInt size);
+    static std::string Hashing(IN const Ptr message, IN ssize_t size);
     static std::string Hashing(IN const std::string msg);
-    static std::string Encrypt(IN const Ptr message, IN SzInt messageSize, IN const Ptr salt, IN SzInt saltSize,
-                               IN SzInt stretching);
-    static std::string Encrypt(IN const std::string msg, IN const std::string salt, IN SzInt stretching);
+    static std::string Encrypt(IN const Ptr message, IN ssize_t messageSize, IN const Ptr salt, IN ssize_t saltSize,
+                               IN ssize_t stretching);
+    static std::string Encrypt(IN const std::string msg, IN const std::string salt, IN ssize_t stretching);
 
 private:
-    void Transform(IN UInt32* msg, IN UInt32* chainVar);
+    void Transform(IN uint32_t* msg, IN uint32_t* chainVar);
 
 private:
-    static UInt32 RR(IN UInt32 x, UInt32 n);
-    static UInt32 SS(IN UInt32 x, UInt32 n);
-    static UInt32 Choose(IN UInt32 x, IN UInt32 y, IN UInt32 z);
-    static UInt32 Majority(IN UInt32 x, IN UInt32 y, IN UInt32 z);
-    static UInt32 Sigma0(IN UInt32 x);
-    static UInt32 Sigma1(IN UInt32 x);
-    static UInt32 RHO0(IN UInt32 x);
-    static UInt32 RHO1(IN UInt32 x);
+    static uint32_t RR(IN uint32_t x, uint32_t n);
+    static uint32_t SS(IN uint32_t x, uint32_t n);
+    static uint32_t Choose(IN uint32_t x, IN uint32_t y, IN uint32_t z);
+    static uint32_t Majority(IN uint32_t x, IN uint32_t y, IN uint32_t z);
+    static uint32_t Sigma0(IN uint32_t x);
+    static uint32_t Sigma1(IN uint32_t x);
+    static uint32_t RHO0(IN uint32_t x);
+    static uint32_t RHO1(IN uint32_t x);
 
 private:
     Info info;

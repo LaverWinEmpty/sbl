@@ -1,8 +1,10 @@
 /*
     Packet: 4kb
-    ¦£¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡ Info ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¤
-    [ PayloadSize | PacketIndex | Protocol | Payload ... ]
-                                                ¡é
+    â”Œ Packet â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+    â”‚ PayloadSize â”‚ PacketIndex â”‚ Protocol â”‚ Payload ... â”‚
+    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                                           â””â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
+                                                 â†“
                         ... | Data ] [ Data Size | Data ] [ DataSize | ...
 */
 
@@ -14,17 +16,18 @@
 
 #include "windows.h"
 #include "winsock2.h"
-#pragma comment(lib, "ws2_32")
-
 #include "../../container/source/array.hpp"
+#include "../../api/include/win.h"
+
+#pragma comment(lib, "ws2_32")
 
 namespace sbl {
 namespace iocp {
 
-using DataSize    = Int16;
-using PayloadSize = Int16;
-using PacketIndex = Int8;
-using Protocol    = Int64;
+using DataSize    = int16_t;
+using PayloadSize = int16_t;
+using PacketIndex = int8_t;
+using Protocol    = int64_t;
 
 enum class ESocketResult
 {
@@ -39,9 +42,9 @@ class EPacketSize
     DECLARE_LIMIT_LIFECYCLE(EPacketSize);
 
 public:
-    readonly SzInt INFO   = sizeof(PayloadSize) + sizeof(Protocol) + sizeof(PacketIndex);
-    readonly SzInt PACKET = DEF_BUF_SIZE;
-    readonly SzInt BUFFER = PACKET - INFO;
+    readonly ssize_t INFO   = sizeof(PayloadSize) + sizeof(Protocol) + sizeof(PacketIndex);
+    readonly ssize_t PACKET = DEF_BUF_SIZE;
+    readonly ssize_t BUFFER = PACKET - INFO;
 };
 
 class SocketTCP
@@ -50,12 +53,13 @@ class SocketTCP
 
 protected:
     SocketTCP();
+    SocketTCP(IN const char* ip, IN u_short port);
 
 public:
     ~SocketTCP();
 
 public:
-    static SocketTCP* CreateClient(IN const AChar* ip, IN u_short port);
+    static SocketTCP* CreateClient(IN const char* ip, IN u_short port);
 
 public:
     SOCKET Accept(OUT OPT SOCKADDR_IN* info = nullptr);
@@ -64,7 +68,7 @@ public:
     DWORD  Listen();
 
 public:
-    DWORD TransmitSync(IN Byte* buffer, IN SzInt size, IN Protocol protocol);
+    DWORD TransmitSync(IN Byte* buffer, IN ssize_t size, IN Protocol protocol);
     DWORD ReceiveSync(OUT OPT Byte* buffer, OUT OPT Protocol* protocol, OUT OPT DataSize* received = nullptr);
 
 public:

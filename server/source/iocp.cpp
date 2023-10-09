@@ -72,19 +72,18 @@ DWORD WINAPI IOCP::WorkerThread(IN LPVOID iocp)
     return 0;
 }
 
-// Throw ErrMsg
+// throw
+// runtime_error: WSAtartup()
 IOCP::IOCP(IN u_short port)
 {
     WSADATA wsa;
     if(0 != WSAStartup(MAKEWORD(2, 2), &wsa)) {
-        throw GetLastError();
+        throw win::ErrorFormatter::Formatting(GetLastError());
     }
 
     socket = SocketIOCP::CreateServer(port);
     socket->Bind();
     socket->Listen();
-
-    throw ErrorBuilder::NewFailed();
 }
 
 IOCP::~IOCP()
@@ -93,12 +92,14 @@ IOCP::~IOCP()
     WSACleanup();
 }
 
-// Throw ErrMsg
+// throw
+// runtime_error: CreateIoCompletionPort
+// runtime_error: CreateThread
 void IOCP::Initialize()
 {
     hcp = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 0);
     if(hcp == NULL) {
-        throw ErrorBuilder::CreateFailed();
+        throw win::ErrorFormatter::Formatting(GetLastError());
     }
 
     SYSTEM_INFO si;
@@ -109,7 +110,7 @@ void IOCP::Initialize()
     for(int i = 0; i < (int)si.dwNumberOfProcessors << 1; ++i) {
         hThread = CreateThread(NULL, 0, WorkerThread, this, 0, NULL);
         if(hThread == NULL) {
-            throw ErrorBuilder::CreateFailed();
+            throw win::ErrorFormatter::Formatting(GetLastError());
         }
         CloseHandle(hThread);
     }
@@ -178,7 +179,7 @@ int IOCP::PostTransmit(IN Ptr arg)
     return 0;
 }
 
-SocketIOCP::SocketIOCP()
+SocketIOCP::SocketIOCP(): SocketTCP()
 {
     rxOperate.parent = this;
     txOperate.parent = this;
@@ -322,7 +323,7 @@ void SocketIOCP::Packing(IN const Ptr payload, IN DataSize size, IN Protocol pro
 
 // Parameter is nullptr => Ignore
 // false: Packet number mismatch
-bool SocketIOCP::Unpacking(OUT OPT Ptr buffer, OUT OPT Protocol* protocol, IN SzInt bufferSize)
+bool SocketIOCP::Unpacking(OUT OPT Ptr buffer, OUT OPT Protocol* protocol, IN ssize_t bufferSize)
 {
     Byte* cursor = reinterpret_cast<Byte*>(rxInfo.buffer);
 
@@ -343,17 +344,20 @@ bool SocketIOCP::Unpacking(OUT OPT Ptr buffer, OUT OPT Protocol* protocol, IN Sz
     return true;
 }
 
+// throw
+// bad_alloc: new
+// runtime_error: socket()
 SocketIOCP* SocketIOCP::CreateServer(IN u_short port)
 {
     SocketIOCP* ptr = new SocketIOCP();
     if(ptr == nullptr) {
-        throw ErrorBuilder::NewFailed();
+        throw std::bad_alloc();
     }
 
     ptr->handle = socket(AF_INET, SOCK_STREAM, 0);
     if(ptr->handle == INVALID_SOCKET) {
         delete ptr;
-        throw ErrorBuilder::CreateFailed();
+        throw std::runtime_error(win::ErrorFormatter::Formatting(GetLastError()));
     }
 
     ptr->info.sin_family      = AF_INET;
@@ -363,11 +367,13 @@ SocketIOCP* SocketIOCP::CreateServer(IN u_short port)
     return ptr;
 }
 
+// throw
+// bad_alloc: new
 SocketIOCP* SocketIOCP::CreateSession(IN SOCKET hSocket, IN const SOCKADDR_IN& sockAddr)
 {
     SocketIOCP* ptr = new SocketIOCP();
     if(ptr == nullptr) {
-        throw ErrorBuilder::NewFailed();
+        throw std::bad_alloc();
     }
 
     ptr->handle = hSocket;
