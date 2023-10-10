@@ -13,7 +13,6 @@
 // clang-format off
 #include "string"
 #include "../../common/include/common.h"
-#include "../../common/include/block.h"
 // clang-format on
 
 namespace sbl {
@@ -78,8 +77,8 @@ EXPORT char* SHA256_Encrypt(IN const void* message, IN int msgSize, IN const voi
 
 } // namespace sbl
 
-#else
 // clang-format off
+#else
 #ifndef IN
 #    define IN
 #endif
