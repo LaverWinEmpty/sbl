@@ -15,7 +15,7 @@ std::string Serializer::Serialization(IN const Ptr ptr, IN size_t size)
 void Serializer::Deserialization(IN const std::string& str, IN size_t size, OUT Ptr ptr)
 {
     if(str.size() != size) {
-        throw ErrorBuilder::FormatError();
+        throw std::runtime_error(EErrMsg::FORMAT_ERROR);
     }
 
     Byte* cursor = ptr;
@@ -50,7 +50,7 @@ std::string Serializer::ToBinary(IN const Ptr ptr, IN size_t size)
 Byte Serializer::FromBinary(IN const std::string& str)
 {
     if(str.size() % 8) {
-        throw ErrorBuilder::FormatError();
+        throw std::runtime_error(EErrMsg::FORMAT_ERROR);
     }
 
     int result = 0;
@@ -64,7 +64,7 @@ Byte Serializer::FromBinary(IN const std::string& str)
 void Serializer::FromBinary(IN const std::string& str, OUT Ptr ptr)
 {
     if(str.size() % 8) {
-        throw ErrorBuilder::FormatError();
+        throw std::runtime_error(EErrMsg::FORMAT_ERROR);
     }
 
     Byte* cursor = ptr;
