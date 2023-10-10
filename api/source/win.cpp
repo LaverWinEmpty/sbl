@@ -2,9 +2,8 @@
 
 std::string sbl::win::ErrorFormatter::Formatting(IN DWORD errorCode)
 {
-    std::string res;
-    LPVOID      msg;
-    DWORD       msgLen = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+    LPVOID msg;
+    DWORD  msgLen = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
                                   NULL,
                                   errorCode,
                                   0,
@@ -21,5 +20,5 @@ std::string sbl::win::ErrorFormatter::Formatting(IN DWORD errorCode)
     }
 
     LocalFree(msg);
-    return res;
+    return buffer;
 }
